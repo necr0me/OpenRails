@@ -11,7 +11,6 @@ gem "sprockets-rails"
 
 gem "faker"
 
-gem "rack-cors"
 gem "devise"
 
 gem "jquery-rails"
