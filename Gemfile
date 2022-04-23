@@ -9,6 +9,18 @@ gem "rails", "~> 7.0.2", ">= 7.0.2.3"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
+gem "faker"
+
+gem "rack-cors"
+gem "devise"
+
+gem "jquery-rails"
+
+gem "bootstrap-sass"
+
+gem "will_paginate"
+gem "bootstrap-will_paginate"
+
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 
