@@ -1,2 +1,9 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1 class="center-container" style="text-align: center">
+<% if signed_in? %>
+  Hi, <%= current_user.email %>!
+  <br>
+  Your current role is <%= current_user.role %>
+<% else %>
+  Hi!
+<% end %>
+</h1>

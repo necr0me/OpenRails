@@ -1,0 +1,61 @@
+@import "bootstrap";
+@import "bootstrap-sprockets";
+@import "bootstrap-compass";
+@import "bootstrap-mincer";
+
+
+#logo
+{
+
+}
+
+.nav > li > a
+{
+  font-size: 20px;
+  text-decoration: none;
+  color: white;
+  &:hover
+  {
+    transition-duration: .5s;
+    color: darkgray;
+    background-color: transparent;
+  }
+  &:focus
+  {
+    background-color: transparent;
+  }
+}
+
+footer
+{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.text-end
+{
+  a, button {
+  font-size: 15px;
+  }
+
+}
+
+.center-container
+{
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, 0);
+  h2
+  {
+    text-align: center;
+  }
+}
+
+.form-restrictions .field
+{
+  width: 100%;
+  max-width: 300px;
+  font-size: 15px;
+}
