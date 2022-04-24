@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :users, only: [:show, :destroy, :index]
+
   get 'home/index'
   root 'home#index'
   devise_for :users
