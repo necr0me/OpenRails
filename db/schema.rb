@@ -28,7 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_24_194027) do
     t.string "phone_number"
     t.string "passport_code"
     t.bigint "user_id", null: false
-    t.bigint "discount_id", null: false
+    t.bigint "discount_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discount_id"], name: "index_user_infos_on_discount_id"
