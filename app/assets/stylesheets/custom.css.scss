@@ -4,11 +4,6 @@
 @import "bootstrap-mincer";
 
 
-#logo
-{
-
-}
-
 .nav > li > a
 {
   font-size: 20px;
@@ -23,6 +18,33 @@
   &:focus
   {
     background-color: transparent;
+  }
+}
+
+ul > li
+{
+  font-size: 15px;
+}
+
+.debug_dump
+{
+  position: absolute;
+  bottom: 45px;
+  left: 0;
+}
+
+.dropdown-menu > li
+{
+  &:hover
+  {
+    transition-duration: .5s;
+  }
+  button
+  {
+    font-size: 14px;
+    width: 130px;
+    font-weight: 400;
+    padding: 5px 8px;
   }
 }
 
@@ -45,7 +67,7 @@ footer
 {
   position: absolute;
   left: 50%;
-  top: 30%;
+  padding: 2px 0 2px 0;
   transform: translate(-50%, 0);
   h2
   {
@@ -58,6 +80,26 @@ footer
   width: 100%;
   max-width: 300px;
   font-size: 15px;
+  input{
+    border-radius: 2px;
+    border: 1px solid black;
+  }
+}
+
+form
+{
+  font-size: 14px;
+  input:not([type='checkbox'])
+  {
+    display: block;
+    border-radius: 2px;
+    border: 1px solid black;
+    margin: 2px 0 2px 0;
+  }
+  label
+  {
+    display: block;
+  }
 }
 
 #error_explanation {

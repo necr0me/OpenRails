@@ -1,0 +1,23 @@
+<% provide(:title, "Profile") %>
+<div class="user-profile center-container">
+  <h2>
+  Hi, <%= current_user.email %>!
+  <br>
+  Your current role is <%= current_user.role %>
+  </h2>
+  <br>
+  <% if @user.user_info.present? %>
+    <h2>Here is your info:</h2>
+    <ul>
+      <li>Name: <%= @user.user_info.name %></li>
+      <li>Surname: <%= @user.user_info.surname %></li>
+      <li>Patronymic: <%= @user.user_info.patronymic %></li>
+      <li>Phone number: <%= @user.user_info.phone_number %></li>
+      <li>Passport code: <%= @user.user_info.passport_code %></li>
+    </ul>
+  <% else%>
+    <h2>
+      Seems like currently you are not fulfilled your info
+    </h2>
+  <% end %>
+</div>

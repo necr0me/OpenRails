@@ -1,9 +1,9 @@
 <% provide(:title, "Edit user info") %>
-<h1> Update your user info </h1>
 <div class="center-container form-restrictions">
+  <h2> Update your info </h2>
   <%= form_for(@user) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
-    <%= f.fields_for :user_info do |uf| %>
+    <%= f.fields_for :user_info, { :class => 'classname'} do |uf| %>
       <%= uf.label :name %>
       <%= uf.text_field :name %>
 

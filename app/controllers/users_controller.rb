@@ -5,16 +5,23 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    @user_info = @user.user_info ? @user.user_info : @user.create_user_info(discount: Discount.first)
+    @user_info = @user.user_info
+    if @user_info == nil
+      @user_info = @user.create_user_info
+    end
   end
 
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to root_path
+      redirect_to current_user
     else
       render 'edit'
     end
+  end
+
+  def show
+    @user = User.find(params[:id])
   end
 
   def destroy
