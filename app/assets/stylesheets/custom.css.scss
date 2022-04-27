@@ -1,8 +1,12 @@
 @import "bootstrap";
 @import "bootstrap-sprockets";
-@import "bootstrap-compass";
-@import "bootstrap-mincer";
 
+
+// Overriding bootstrap-sass default css style
+.fade
+{
+  opacity: 1;
+}
 
 .nav-link.dropdown-toggle
 {
@@ -124,4 +128,10 @@ form
     color: red;
     margin: 0 0 30px 0;
   }
+}
+
+table *
+{
+    margin: 5px;
+    font-size: 16px;
 }

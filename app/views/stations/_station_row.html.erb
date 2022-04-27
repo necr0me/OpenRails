@@ -1,0 +1,14 @@
+<tr class='station-row' id="station-<%= station.id %>">
+  <th scope="row"><%=station.id %></th>
+  <td> <%= station.name%></td>
+  <td style="width: 20%">
+    <div style="display: flex; flex-direction: row;">
+      <%= button_to edit_station_path(station.id), method: :get, class: 'btn btn-outline-primary' do %>
+        <i class="bi bi-pencil-square"></i>
+      <% end %>
+      <%= button_to station_path(station.id), method: :delete, class: 'btn btn-outline-danger', confirm: 'Are you sure?' do %>
+        <i class="bi bi-trash3"></i>
+      <% end %>
+    </div>
+  </td>
+</tr>
