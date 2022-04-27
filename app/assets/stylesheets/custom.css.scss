@@ -4,6 +4,22 @@
 @import "bootstrap-mincer";
 
 
+.nav-link.dropdown-toggle
+{
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+}
+
+.nav-link.dropdown-toggle:hover,
+.nav-link.dropdown-toggle:active,
+.nav-link.dropdown-toggle:focus,
+.nav-link.dropdown-toggle[aria-expanded='true']:focus,
+.nav-link.dropdown-toggle[aria-expanded='true']:hover
+{
+  color: darkgray;
+}
+
 .nav > li > a
 {
   font-size: 20px;
