@@ -1,0 +1,9 @@
+var connections_list = document.querySelector("#connected-stations-list")
+connections_list.innerHTML = '<% if @station.connected_stations.to_a.count != 0 %>'
+                            + 'Connected with:'
+                            +    '<ul>'
+                            +     '<% @station.connected_stations.each do |st| %>'
+                            +       '<li><%= st.name %></li>'
+                            +     '<% end %>'
+                            +    '</ul>'
+                            +  '<%end %>'

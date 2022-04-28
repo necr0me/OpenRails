@@ -1,4 +1,5 @@
 class StationsController < ApplicationController
+  include StationsHelper
 
   def new
     @station = Station.new
@@ -15,15 +16,41 @@ class StationsController < ApplicationController
   end
 
   def index
-    @stations = Station.all.paginate(page: params[:page], per_page: 10)
+    @stations = Station.all.order(id: :ASC).paginate(page: params[:page], per_page: 7)
+  end
+
+  def search_stations
+    @stations = Station.where("name LIKE :prefix", prefix: "#{params[:name]}%")
+                       .order(id: :ASC)
+                       .paginate(page: params[:page], per_page: 7)
+    render 'index'
   end
 
   def edit
     @station = Station.find(params[:id])
+    @stations = Station.where.not(id: params[:id])
   end
 
   def update
+    @station = Station.find(params[:id])
+    if @station.update(station_params)
+      redirect_to stations_path
+    else
+      render 'edit'
+    end
+  end
 
+  def update_station_connections
+    puts params
+    @station = Station.find(params[:station_id])
+    if params.has_key?(:station)
+      execute(params)
+    else
+      remove_all_connections(params[:station_id])
+    end
+    respond_to do |format|
+      format.js
+    end
   end
 
   def destroy
@@ -31,6 +58,8 @@ class StationsController < ApplicationController
     flash[:success] = 'Station deleted.'
     redirect_to stations_path
   end
+
+
 
   private
 
