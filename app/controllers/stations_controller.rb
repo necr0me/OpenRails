@@ -16,14 +16,7 @@ class StationsController < ApplicationController
   end
 
   def index
-    @stations = Station.all.order(id: :ASC).paginate(page: params[:page], per_page: 7)
-  end
-
-  def search_stations
-    @stations = Station.where("name LIKE :prefix", prefix: "#{params[:name]}%")
-                       .order(id: :ASC)
-                       .paginate(page: params[:page], per_page: 7)
-    render 'index'
+    @stations = Station.where("name LIKE :prefix", prefix: "#{params[:name]}%").order(id: :ASC).paginate(page: params[:page], per_page: 7)
   end
 
   def edit

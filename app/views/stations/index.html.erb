@@ -1,9 +1,15 @@
 <% provide(:title, "Stations") %>
-<div style="display: flex; flex-direction: row;">
-  <button class='btn btn-outline-success' style='margin:10px; font-size: 15px' data-bs-toggle="modal" data-bs-target="#add_station_modal">Create new station</button>
-  <%= button_to search_stations_path("Mo"), method: :get, :remote => true, style: 'margin:10px; font-size: 15px' , class: 'btn btn-outline-primary' do %>
-    <i class="bi bi-search"></i>
+<div style="display: flex; justify-content: space-between">
+  <%= form_tag(stations_path, method: :get, class: 'search-form') do %>
+    <div class="input-group">
+      <%= text_field_tag(:name, params[:name], placeholder: "Search...", class: 'form-control', style: 'border: 1px solid #0d6efd') %>
+      <%= button_tag(type: :submit, class: 'btn btn-primary') do%>
+         <i class="bi bi-search"></i>
+      <% end %>
+    </div>
   <% end %>
+
+  <button class='btn btn-outline-success' style='margin:10px; font-size: 15px' data-bs-toggle="modal" data-bs-target="#add_station_modal">Create new station</button>
 </div>
 <div class="output-table">
   <table class="table table-hover">
@@ -24,7 +30,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add station</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <%= form_for(:station) do |f| %>
