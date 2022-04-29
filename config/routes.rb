@@ -1,11 +1,8 @@
 Rails.application.routes.draw do
-  get 'route/index'
-  get 'route/show'
-  get 'route/new'
-  get 'route/edit'
   devise_for :users
-  resources :users, only: [:show, :edit, :update, :destroy, :index]
-  resources :stations, only: [:new, :create, :edit, :update, :destroy, :index] do
+  resources :users, except: [:new, :create]
+  resources :routes
+  resources :stations, except: [:show] do
     patch 'update_station_connections'
   end
 
@@ -14,6 +11,6 @@ Rails.application.routes.draw do
   root 'home#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
+  # Defines the root path routes ("/")
   # root "articles#index"
 end

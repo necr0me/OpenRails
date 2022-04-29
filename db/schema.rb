@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_29_122845) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_29_135036) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_29_122845) do
     t.integer "order_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["route_id", "order_number"], name: "index_station_order_numbers_on_route_id_and_order_number", unique: true
     t.index ["route_id"], name: "index_station_order_numbers_on_route_id"
     t.index ["station_id"], name: "index_station_order_numbers_on_station_id"
   end

@@ -1,0 +1,15 @@
+newStation = ""
+var stationsList = document.querySelector('#ordered-stations-list')
+stationsList.innerHTML = '<% @route.stations.each_with_index do |station, index| %>'
+                       + '<li><%= index+1 %>. <%= station.name %></li>'
+                       + '<% end %>'
+
+var modalStationsList = document.querySelector('#station-ul')
+modalStationsList.innerHTML = '<% if @stations.count > 0 %>'
+                            +      '<% @stations.each do |station|%>'
+                            +      '<li><a class="stations_to_choose" id="station-<%=station.id%>" onclick="stationClick(this.id)"'
+                            +            'data-chosen="<%=false%>"><%=station.name %></a></li>'
+                            +      '<% end %>'
+                            +  '<% else %>'
+                            +  '<li><a>No stations to choose.</a></li>'
+                            +  '<% end %>'
