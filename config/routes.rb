@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'route/index'
+  get 'route/show'
+  get 'route/new'
+  get 'route/edit'
   devise_for :users
   resources :users, only: [:show, :edit, :update, :destroy, :index]
   resources :stations, only: [:new, :create, :edit, :update, :destroy, :index] do

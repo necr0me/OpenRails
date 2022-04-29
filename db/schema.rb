@@ -10,13 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_27_155550) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_29_122845) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "discounts", force: :cascade do |t|
     t.string "description"
     t.integer "value", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "routes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -28,6 +33,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_27_155550) do
     t.datetime "updated_at", null: false
     t.index ["connected_station_id"], name: "index_station_connections_on_connected_station_id"
     t.index ["station_id"], name: "index_station_connections_on_station_id"
+  end
+
+  create_table "station_order_numbers", force: :cascade do |t|
+    t.bigint "route_id", null: false
+    t.bigint "station_id", null: false
+    t.integer "order_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["route_id"], name: "index_station_order_numbers_on_route_id"
+    t.index ["station_id"], name: "index_station_order_numbers_on_station_id"
   end
 
   create_table "stations", force: :cascade do |t|
@@ -70,6 +85,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_27_155550) do
 
   add_foreign_key "station_connections", "stations"
   add_foreign_key "station_connections", "stations", column: "connected_station_id"
+  add_foreign_key "station_order_numbers", "routes"
+  add_foreign_key "station_order_numbers", "stations"
   add_foreign_key "user_infos", "discounts"
   add_foreign_key "user_infos", "users"
 end
