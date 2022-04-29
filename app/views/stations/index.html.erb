@@ -1,0 +1,49 @@
+<% provide(:title, "Stations") %>
+<div style="display: flex; justify-content: space-between">
+  <%= form_tag(stations_path, method: :get, class: 'search-form') do %>
+    <div class="input-group">
+      <%= text_field_tag(:name, params[:name], placeholder: "Search...", class: 'form-control', style: 'border: 1px solid #0d6efd') %>
+      <%= button_tag(type: :submit, class: 'btn btn-primary') do%>
+         <i class="bi bi-search"></i>
+      <% end %>
+    </div>
+  <% end %>
+
+  <button class='btn btn-outline-success' style='margin:10px; font-size: 15px' data-bs-toggle="modal" data-bs-target="#add_station_modal">Create new station</button>
+</div>
+<div class="output-table">
+  <table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+      <th>id</th>
+      <th>Name</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%= render partial: 'stations/station_row', :collection => @stations, :as => :station  %>
+    </tbody>
+    <%= will_paginate %>
+  </table>
+</div>
+<div class="modal fade" id="add_station_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add station</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <%= form_for(:station) do |f| %>
+        <div class="modal-body" id="modal-body">
+          <div id="station_creation_message"></div>
+          <label>Name: </label>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <%= f.submit "Create station", class: "btn btn-success" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

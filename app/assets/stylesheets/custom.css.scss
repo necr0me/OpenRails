@@ -1,0 +1,150 @@
+@import "bootstrap";
+@import "bootstrap-sprockets";
+@import "bootstrap-mincer";
+@import "bootstrap-compass";
+@import "vertical-menu";
+
+// Overriding bootstrap-sass default css style
+.fade
+{
+  opacity: 1;
+}
+
+.nav-link.dropdown-toggle
+{
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+}
+
+.nav-link.dropdown-toggle:hover,
+.nav-link.dropdown-toggle:active,
+.nav-link.dropdown-toggle:focus,
+.nav-link.dropdown-toggle[aria-expanded='true']:focus,
+.nav-link.dropdown-toggle[aria-expanded='true']:hover
+{
+  color: darkgray;
+}
+
+.nav > li > a
+{
+  font-size: 20px;
+  text-decoration: none;
+  color: white;
+  &:hover
+  {
+    transition-duration: .5s;
+    color: darkgray;
+    background-color: transparent;
+  }
+  &:focus
+  {
+    background-color: transparent;
+  }
+}
+
+ul > li
+{
+  font-size: 15px;
+}
+
+.debug_dump
+{
+  position: absolute;
+  bottom: 45px;
+  left: 0;
+}
+
+.dropdown-menu > li
+{
+  &:hover
+  {
+    transition-duration: .5s;
+  }
+  button
+  {
+    font-size: 14px;
+    width: 130px;
+    font-weight: 400;
+    padding: 5px 8px;
+  }
+}
+
+footer
+{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.text-end
+{
+  a, button {
+  font-size: 15px;
+  }
+
+}
+
+.center-container
+{
+  position: absolute;
+  left: 50%;
+  padding: 2px 0 2px 0;
+  transform: translate(-50%, 0);
+  h2
+  {
+    text-align: center;
+  }
+}
+
+.form-restrictions .field
+{
+  width: 100%;
+  max-width: 300px;
+  font-size: 15px;
+  input{
+    border-radius: 2px;
+    border: 1px solid black;
+  }
+}
+
+form
+{
+  font-size: 14px;
+  input:not([type='checkbox'])
+  {
+    display: block;
+    border-radius: 2px;
+    border: 1px solid black;
+    margin: 2px 0 2px 0;
+  }
+  label
+  {
+    display: block;
+  }
+}
+
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+table *
+{
+    margin: 5px;
+    font-size: 16px;
+}
+
+.input-group
+{
+  margin: 10px;
+  *{
+    font-size: 15px;
+  }
+   button {
+     margin-top: 2px;
+   }
+}

@@ -1,0 +1,25 @@
+<% provide(:title, "Edit user info") %>
+<div class="center-container form-restrictions">
+  <h2> Update your info </h2>
+  <%= form_for(@user) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <%= f.fields_for :user_info, { :class => 'classname'} do |uf| %>
+      <%= uf.label :name %>
+      <%= uf.text_field :name %>
+
+      <%= uf.label :surname %>
+      <%= uf.text_field :surname %>
+
+      <%= uf.label :patronymic %>
+      <%= uf.text_field :patronymic %>
+
+      <%= uf.label :passport_code %>
+      <%= uf.text_field :passport_code %>
+
+      <%= uf.label :phone_number %>
+      <%= uf.text_field :phone_number %>
+
+    <% end %>
+    <%= f.submit "Save changes", method: :patch, class: "btn btn-success" %>
+  <% end %>
+</div>
