@@ -16,11 +16,9 @@ class RoutesController < ApplicationController
   def create
     puts params
     unless params[:station_id].blank?
-      create_route(params)
-      puts "url - #{routes_url}"
-      puts "paht- #{routes_path}"
+      route = create_route(params)
       respond_to do |format|
-        format.js { render js: "window.location = '#{routes_path}'"}
+        format.js { render js: "window.location = '#{routes_path}/#{route.id}/edit'"}
       end
     end
   end
@@ -43,6 +41,16 @@ class RoutesController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def destroy
+    @route = Route.find(params[:id])
+    if @route.destroy
+      flash[:success] = 'You have successfully deleted route.'
+    else
+      flash[:danger] = 'Something went wrong.'
+    end
+    redirect_to request.referrer
   end
 
 end
