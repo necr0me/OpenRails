@@ -17,8 +17,8 @@
         let lastListItem = document.querySelector("#ordered-stations-list").lastElementChild
         lastListItem.innerHTML += '<button id="station_remove_button" '
                                 + 'class="btn btn-outline-danger" '
-                                + 'value=' + lastListItem.id.substring('os-'.length)+ '>'
-                                + 'D</button'
+                                + 'value="' + lastListItem.id.substring('os-'.length) + '" onClick=removeStation(event)>'
+                                + 'D</button>'
     }
 
     let newStation = ""
@@ -78,25 +78,26 @@
         item.dataset.chosen = choose;
     }
 
-    $(function (){
-        $("#station_add_submit").on("click", function() {
-            $.ajax(
-                {
-                    method: 'PATCH',
-                    url: '/routes/' + <%= @route.id %>,
-                    data: {"authenticity_token": "<%= form_authenticity_token %>", route: {station_id: newStation, action: "add" }}
-                }
-            )
-        });
-        $("#station_remove_button").on("click", function(event){
-            to_remove = event.target.value
-            $.ajax(
-              {
-                  method: 'PATCH',
-                  url: '/routes/' + <%= @route.id %>,
-                  data: {"authenticity_token": "<%= form_authenticity_token %>", route: {station_id: to_remove, action: "remove" }}
-              }
-            )
-        })
-    });
+    function addStation()
+    {
+        $.ajax(
+          {
+              method: 'PATCH',
+              url: '/routes/' + <%= @route.id %>,
+              data: {"authenticity_token": "<%= form_authenticity_token %>", route: {station_id: newStation, action: "add" }}
+          }
+        )
+    }
+
+    function removeStation(event)
+    {
+        let to_remove = event.target.value
+        $.ajax(
+          {
+              method: 'PATCH',
+              url: '/routes/' + <%= @route.id %>,
+              data: {"authenticity_token": "<%= form_authenticity_token %>", route: {station_id: to_remove, action: "remove" }}
+          }
+        )
+    }
 </script>

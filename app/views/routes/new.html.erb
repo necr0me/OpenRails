@@ -65,16 +65,15 @@
       item.dataset.chosen = choose;
   }
 
-  $(function (){
-      $("#station_add_submit").on("click", function() {
-          $.ajax(
-              {
-                  method: 'POST',
-                  url: '/routes/',
-                  data: {"authenticity_token": "<%= form_authenticity_token %>", station_id: newStation}
-              }
-          )
-      });
-  });
+  function addStation()
+  {
+      $.ajax(
+          {
+              method: 'POST',
+              url: '/routes/',
+              data: {"authenticity_token": "<%= form_authenticity_token %>", station_id: newStation}
+          }
+      )
+  }
 
 </script>
