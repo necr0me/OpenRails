@@ -31,15 +31,23 @@ class RoutesController < ApplicationController
 
   def update
     @route = Route.find(params[:id])
+    puts params
     if params[:route][:action] == 'add'
       if params[:route][:station_id] != ''
         add_station(@route, params[:route][:station_id])
       end
+    elsif params[:route][:action] == 'remove'
+      remove_station(@route, params[:route][:station_id])
     end
-    @stations = get_not_common_stations(@route.stations.last.connected_stations,
-                                        @route.stations)
     respond_to do |format|
-      format.js
+      if @route.stations.count == 0
+        @route.destroy
+        format.js { render js: "window.location = '#{routes_path}'" }
+      else
+        @stations = get_not_common_stations(@route.stations.last.connected_stations,
+                                            @route.stations)
+        format.js
+      end
     end
   end
 

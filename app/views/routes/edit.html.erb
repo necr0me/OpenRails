@@ -3,13 +3,24 @@
 <% end %>
 <ul id="ordered-stations-list">
 <% @route.stations.each_with_index do |station, index| %>
-  <li><%= index+1 %>. <%= station.name %></li>
+  <li id='os-<%= station.id %>'>
+    <%= index+1 %>. <%= station.name %>
+  </li>
 <% end %>
 </ul>
 <button class="btn btn-primary" style="font-size: 15px" data-bs-toggle="modal" data-bs-target="#add_station_modal">Add station</button>
 <%= render partial: 'station_pick_modal', locals: { stations: @connected_stations}%>
 
 <script>
+    window.onload = function()
+    {
+        let lastListItem = document.querySelector("#ordered-stations-list").lastElementChild
+        lastListItem.innerHTML += '<button id="station_remove_button" '
+                                + 'class="btn btn-outline-danger" '
+                                + 'value=' + lastListItem.id.substring('os-'.length)+ '>'
+                                + 'D</button'
+    }
+
     let newStation = ""
     const offsetIndex = 'station-'.length;
 
@@ -77,5 +88,15 @@
                 }
             )
         });
+        $("#station_remove_button").on("click", function(event){
+            to_remove = event.target.value
+            $.ajax(
+              {
+                  method: 'PATCH',
+                  url: '/routes/' + <%= @route.id %>,
+                  data: {"authenticity_token": "<%= form_authenticity_token %>", route: {station_id: to_remove, action: "remove" }}
+              }
+            )
+        })
     });
 </script>

@@ -9,6 +9,10 @@ module RoutesHelper
     StationOrderNumber.create(route_id: route.id, station_id: station_id, order_number: route.stations.count+1)
   end
 
+  def remove_station(route, station_id)
+    StationOrderNumber.find_by(route_id: route.id, station_id: station_id).destroy
+  end
+
   def get_not_common_stations(stations_a, stations_b)
     res = []
     stations_a.each do |station_a|
