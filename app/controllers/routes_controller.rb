@@ -17,7 +17,11 @@ class RoutesController < ApplicationController
     puts params
     unless params[:station_id].blank?
       create_route(params)
-      render js: "window.location = #{routes_path}"
+      puts "url - #{routes_url}"
+      puts "paht- #{routes_path}"
+      respond_to do |format|
+        format.js { render js: "window.location = '#{routes_path}'"}
+      end
     end
   end
 

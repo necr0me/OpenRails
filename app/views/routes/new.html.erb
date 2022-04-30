@@ -1,5 +1,5 @@
 <% provide(:title, "Create new route") %>
-<%= form_for(@route) do |f| %>
+<%= form_for(@route, :remote => true) do |f| %>
 <% end %>
 <div class="centered-button">
    <button class="btn btn-primary" style="font-size: 15px" data-bs-toggle="modal" data-bs-target="#add_station_modal">Choose starting station</button>
