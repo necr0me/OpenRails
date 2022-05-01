@@ -1,13 +1,16 @@
 newStation = ""
 var stationsList = document.querySelector('#ordered-stations-list')
-stationsList.innerHTML = '<% @route.stations.each_with_index do |station, index| %>'
-                       + '<li id="os-<%= station.id %>"><%= index+1 %>. <%= station.name %></li>'
+stationsList.innerHTML = '<% @route.stations.each do |station| %>'
+                       + '<li id="os-<%= station.id %>">'
+                       + '    <i class="bi bi-circle-fill blue"></i>'
+                       + ' <%= station.name %></li>'
                        + '<% end %>'
 
 stationsList.lastElementChild.innerHTML += '<button id="station_remove_button" '
-                                        + 'class="btn btn-outline-danger" '
+                                        + 'class="btn" '
+                                        + 'style="font-size: 12px; color: red; margin-left: 2%" '
                                         + 'value="' + stationsList.lastElementChild.id.substring('os-'.length) + '" onClick=removeStation(event)>'
-                                        + 'D</button>'
+                                        + '<i class="bi bi-x-circle"></i></i></button>'
 
 var modalStationsList = document.querySelector('#station-ul')
 modalStationsList.innerHTML = '<% if @stations.count > 0 %>'

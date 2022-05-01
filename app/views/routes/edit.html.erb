@@ -1,14 +1,23 @@
 <% provide(:title, "Edit route") %>
 <%= form_for(@route) do |f| %>
 <% end %>
+
 <ul id="ordered-stations-list">
-<% @route.stations.each_with_index do |station, index| %>
+<% @route.stations.each do |station| %>
   <li id='os-<%= station.id %>'>
-    <%= index+1 %>. <%= station.name %>
+    <i class="bi bi-circle-fill blue"></i>
+    <%= station.name %>
   </li>
 <% end %>
 </ul>
-<button class="btn btn-primary" style="font-size: 15px" data-bs-toggle="modal" data-bs-target="#add_station_modal">Add station</button>
+
+<div class="add-station-container" data-bs-toggle="modal" data-bs-target="#add_station_modal">
+<button class="btn btn-link">
+  <span><i class="bi bi-plus-circle"></i></span>
+</button>
+Add new station
+</div>
+
 <%= render partial: 'station_pick_modal', locals: { stations: @connected_stations}%>
 
 <script>
@@ -16,9 +25,10 @@
     {
         let lastListItem = document.querySelector("#ordered-stations-list").lastElementChild
         lastListItem.innerHTML += '<button id="station_remove_button" '
-                                + 'class="btn btn-outline-danger" '
+                                + 'class="btn" '
+                                + 'style="font-size: 12px; color: red; margin-left: 2%" '
                                 + 'value="' + lastListItem.id.substring('os-'.length) + '" onClick=removeStation(event)>'
-                                + 'D</button>'
+                                + '<i class="bi bi-x-circle"></i></button>'
     }
 
     let newStation = ""
@@ -91,7 +101,7 @@
 
     function removeStation(event)
     {
-        let to_remove = event.target.value
+        let to_remove = event.target.tagName === 'I' ? event.target.parentNode.value : event.target.value
         $.ajax(
           {
               method: 'PATCH',
