@@ -3,11 +3,40 @@
 @import "bootstrap-mincer";
 @import "bootstrap-compass";
 @import "vertical-menu";
+@import "joined-unorderd-list";
 
 // Overriding bootstrap-sass default css style
 .fade
 {
   opacity: 1;
+}
+
+.blue
+{
+  font-size: 12px;
+  margin-right: 12px;
+  color: #0b5ed7;
+}
+
+.add-station-container
+{
+  font-size: 15px;
+  margin-left: 9px;
+  margin-top: -19px;
+  color: #0d6efd;
+  width: fit-content;
+  cursor: pointer;
+
+  button
+  {
+    border-radius: 50%;
+    font-size: 17px;
+  }
+}
+
+.btn-red
+{
+  color: red;
 }
 
 .nav-link.dropdown-toggle
@@ -148,3 +177,37 @@ table *
      margin-top: 2px;
    }
 }
+
+.centered-button
+{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.round-button
+{
+  border-radius: 50%;
+}
+
+//#ordered-stations-list
+//{
+//  li {
+//    position: relative;
+//
+//
+//    padding-bottom: 10px;
+//    margin-left: 6px;
+//  }
+//
+//  li:before {
+//    background-color: black;
+//    width: 2px;
+//    position: absolute;
+//    left: -12px;
+//    top: 10px;
+//    bottom: -7px;
+//    content: '';
+//  }
+//}
