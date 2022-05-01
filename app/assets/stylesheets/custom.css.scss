@@ -23,7 +23,7 @@
   font-size: 15px;
   margin-left: 9px;
   margin-top: -19px;
-  color: #0d6efd;
+  color: green;
   width: fit-content;
   cursor: pointer;
 
@@ -31,7 +31,12 @@
   {
     border-radius: 50%;
     font-size: 17px;
+    *
+    {
+      color: green;
+    }
   }
+
 }
 
 .btn-red
@@ -190,24 +195,3 @@ table *
 {
   border-radius: 50%;
 }
-
-//#ordered-stations-list
-//{
-//  li {
-//    position: relative;
-//
-//
-//    padding-bottom: 10px;
-//    margin-left: 6px;
-//  }
-//
-//  li:before {
-//    background-color: black;
-//    width: 2px;
-//    position: absolute;
-//    left: -12px;
-//    top: 10px;
-//    bottom: -7px;
-//    content: '';
-//  }
-//}

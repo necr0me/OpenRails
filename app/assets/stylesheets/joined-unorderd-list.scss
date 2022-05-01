@@ -2,10 +2,24 @@
 {
   list-style: none;
   li{
+    width: fit-content;
     position: relative;
     padding-bottom: 1em;
   }
 
+  li > button
+  {
+    opacity: 0;
+    transition-duration: .5s;
+    transition-property: opacity;
+  }
+
+  li:hover > button
+  {
+    opacity: 1;
+    transition-duration: .5s;
+    transition-property: opacity;
+  }
   /* The actual line being placed before each list item, tweak width and color as appropriate */
   li:before {
     background-color: #0b5ed7;

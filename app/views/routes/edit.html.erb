@@ -26,7 +26,7 @@ Add new station
         let lastListItem = document.querySelector("#ordered-stations-list").lastElementChild
         lastListItem.innerHTML += '<button id="station_remove_button" '
                                 + 'class="btn" '
-                                + 'style="font-size: 12px; color: red; margin-left: 2%" '
+                                + 'style="font-size: 12px; color: red;" '
                                 + 'value="' + lastListItem.id.substring('os-'.length) + '" onClick=removeStation(event)>'
                                 + '<i class="bi bi-x-circle"></i></button>'
     }
