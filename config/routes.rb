@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :stations, except: [:show] do
     patch 'update_station_connections'
   end
+  resources :carriages, except: [:show]
 
   get 'stations/search/:name', to: 'stations#search_stations', as: 'search_stations'
   get 'home/index'

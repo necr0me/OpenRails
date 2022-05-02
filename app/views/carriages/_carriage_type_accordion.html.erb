@@ -1,0 +1,15 @@
+<div class="accordion-item" onClick='accClick(event)'>
+  <h2 class="accordion-header" id="heading-<%= carriage_type.id %>">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#carriageType-<%= carriage_type.id %>" aria-expanded="false" aria-controls="carriageType-<%= carriage_type.id %>" style="font-size: 15px">
+      <%= carriage_type.name %>
+    </button>
+  </h2>
+  <div id="carriageType-<%= carriage_type.id %>" class="accordion-collapse collapse" aria-labelledby="heading-<%= carriage_type.id %>" data-bs-parent="#carriageAccordion">
+    <div class="accordion-body" style="font-size: 15px">
+      <strong>Description: </strong><%= carriage_type.description %>
+      <br>
+      <strong>Capacity: </strong><%= carriage_type.capacity %>
+    </div>
+  </div>
+</div>
