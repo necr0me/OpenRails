@@ -10,7 +10,7 @@
     </tr>
     </thead>
     <tbody>
-    <%= render partial: 'routes/route_row', :collection => @routes, :as => :route  %>
+    <%= render partial: 'routes/partials/route_row', :collection => @routes, :as => :route  %>
     </tbody>
     <%= will_paginate %>
   </table>

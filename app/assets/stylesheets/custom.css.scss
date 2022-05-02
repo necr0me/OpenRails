@@ -4,6 +4,7 @@
 @import "bootstrap-compass";
 @import "vertical-menu";
 @import "joined-unorderd-list";
+@import "carriage";
 
 // Overriding bootstrap-sass default css style
 .fade
@@ -123,7 +124,7 @@ footer
 {
   position: absolute;
   left: 50%;
-  padding: 2px 0 2px 0;
+  padding: 20px 0 0 0;
   transform: translate(-50%, 0);
   h2
   {

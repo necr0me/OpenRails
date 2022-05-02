@@ -1,0 +1,29 @@
+<% provide(:title, "Testing carriage scheme") %>
+<div class="center-container">
+  <div class="carriage">
+    <div class="coupes upper-coupes">
+      <div class="wc">
+        <div class="coupe-side"></div>
+        WC
+        <div class="coupe-side"></div>
+      </div>
+      <div class="conductor">
+        <div class="coupe-side"></div>
+        C
+        <div class="coupe-side"></div>
+      </div>
+      <% 9.times do %><div class="coupe upper-coupe">
+      <div class="top"><button class="square-button upper-place"><%="%02d" % 1 %></button><button class="square-button upper-place"><%="%02d" % 4 %></button></div>
+      <div class="bottom"><button class="square-button bottom-place"><%="%02d" % 2 %></button><button class="square-button bottom-place"><%="%02d" % 3 %></button></div>
+    </div><% end %>
+      <div class="wc">
+        <div class="coupe-side"></div>
+        WC
+        <div class="coupe-side"></div>
+      </div>
+    </div>
+    <div class="coupes bottom-coupes"><div class="tea-zone">T</div><% 9.times do %><div class="coupe bottom-coupe">
+      <div class="bottom-block"><button class="square-button upper-place"><%="%02d" % 2 %></button><button class="square-button bottom-place"><%="%02d" % 1 %></button></div>
+    </div><% end %></div>
+  </div>
+</div>

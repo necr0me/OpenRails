@@ -13,7 +13,7 @@
     </tr>
     </thead>
     <tbody>
-    <%= render partial: 'carriages/carriage_row', :collection => @carriages, :as => :carriage  %>
+    <%= render partial: 'carriages/partials/carriage_row', :collection => @carriages, :as => :carriage  %>
     </tbody>
     <%= will_paginate %>
   </table>
@@ -30,7 +30,7 @@
           <%= form_for(:carriage) do %>
           <% end %>
           <div class="accordion" id="carriageAccordion" style="font-size: 15px">
-            <%= render partial: 'carriages/carriage_type_accordion', :collection => @carriage_types, :as => :carriage_type %>
+            <%= render partial: 'carriages/partials/carriage_type_accordion', :collection => @carriage_types, :as => :carriage_type %>
           </div>
         </div>
         <div class="modal-footer">

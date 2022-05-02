@@ -21,7 +21,7 @@
     </tr>
     </thead>
     <tbody>
-    <%= render partial: 'stations/station_row', :collection => @stations, :as => :station  %>
+    <%= render partial: 'stations/partials/station_row', :collection => @stations, :as => :station  %>
     </tbody>
     <%= will_paginate %>
   </table>
