@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_29_135036) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_02_095219) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "carriage_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.integer "capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "carriages", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "carriage_type_id"
+    t.index ["carriage_type_id"], name: "index_carriages_on_carriage_type_id"
+  end
 
   create_table "discounts", force: :cascade do |t|
     t.string "description"
@@ -24,6 +39,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_29_135036) do
   create_table "routes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "seats", force: :cascade do |t|
+    t.integer "number", null: false
+    t.boolean "is_taken", default: false, null: false
+    t.bigint "carriage_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["carriage_id"], name: "index_seats_on_carriage_id"
   end
 
   create_table "station_connections", force: :cascade do |t|
@@ -84,6 +108,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_29_135036) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "carriages", "carriage_types"
+  add_foreign_key "seats", "carriages"
   add_foreign_key "station_connections", "stations"
   add_foreign_key "station_connections", "stations", column: "connected_station_id"
   add_foreign_key "station_order_numbers", "routes"
