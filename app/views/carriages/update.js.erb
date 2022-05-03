@@ -1,0 +1,23 @@
+var carriageList = document.querySelector('#train-carriages-list')
+carriageList.innerHTML = '<% @train.carriages.each do |carriage| %>'
+                    +    '<li id="carriage-<%=carriage.id%>">'
+                    +    '        <i class="bi bi-circle-fill blue"></i> '
+                    +     '<a href="<%= edit_carriage_path(carriage.id) %>" style="text-decoration: none"><%= carriage.name %></a></li>'
+                    +     '<% end %>'
+
+if (carriageList.lastElementChild !== null)
+{
+    carriageList.lastElementChild.innerHTML +='<button id="carriage_remove_button" '
+                                            + 'class="btn" '
+                                            + 'style="font-size: 12px; color: red; margin-left: 20px" '
+                                            + 'value="' + carriageList.lastElementChild.id.substring('carriage-'.length) + '" onClick=removeCarriage(event)>'
+                                            + '<i class="bi bi-x-circle"></i></button>'
+}
+
+var carriagesToPick = document.querySelector('#carriage-ul')
+carriagesToPick.innerHTML = '<% @carriages.each do |carriage| %>'
+                          +    '<li>'
+                          +       '<a id="carriage-<%=carriage.id %>" onclick="carriageClick(this.id)" data-chosen="false">'
+                          +       ' <%= carriage.name %> (Capacity: <%=carriage.capacity %>)</a>'
+                          +     '</li>'
+                          + '<% end %>'

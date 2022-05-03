@@ -1,0 +1,129 @@
+<% provide(:title, "Edit train") %>
+<div class="center-container">
+<ul id="train-carriages-list" style="list-style: none" >
+  <% @train.carriages.each do |carriage| %>
+  <li id="carriage-<%=carriage.id%>">
+    <i class='bi bi-circle-fill blue'></i>
+    <a href='<%= edit_carriage_path(carriage.id) %>' style="text-decoration: none"><%= carriage.name %></a></li>
+  <% end %>
+</ul>
+
+<div class="add-station-container" style="margin-top: 0" data-bs-toggle="modal" data-bs-target="#add_carriage_modal">
+  <button class="btn btn-link">
+    <span><i class="bi bi-plus-circle"></i></span>
+  </button>
+  Add new carriage
+</div>
+</div>
+
+<%= render partial: 'trains/partials/carriage_pick_modal', :locals => { :carriages => @carriages} %>
+
+<script>
+    let newCarriage=""
+    let offsetIndex="carriage-".length
+
+    window.onload = function()
+    {
+        let query = document.querySelector("#train-carriages-list")
+        if (query !== null)
+        {
+            let lastListItem = document.querySelector("#train-carriages-list").lastElementChild
+            lastListItem.innerHTML += '<button id="carriage_remove_button" '
+              + 'class="btn" '
+              + 'style="font-size: 12px; color: red; margin-left: 20px" '
+              + 'value="' + lastListItem.id.substring(offsetIndex) + '" onClick=removeCarriage(event)>'
+              + '<i class="bi bi-x-circle"></i></button>'
+        }
+    }
+
+    function inputKeyUp()
+    {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('carriage-search-input');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("carriage-ul");
+        li = ul.getElementsByTagName('li');
+
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+    function carriageClick(id)
+    {
+        const value = id.substring(offsetIndex)
+        const carriage = document.getElementById(id)
+        if (newCarriage === "")
+        {
+            paintListItem(carriage, 'cornflowerBlue', 'white', 'true')
+            newCarriage = value;
+        }
+        else
+        {
+            if(carriage.dataset.chosen === 'true')
+            {
+                paintListItem(carriage, '#eee', 'black', 'false')
+                newCarriage = "";
+            }
+            else
+            {
+                const prevCarriage = document.getElementById('carriage-' + newCarriage);
+                paintListItem(prevCarriage, '#eee', 'black', 'false')
+                paintListItem(carriage, 'cornflowerBlue', 'white', 'true')
+                newCarriage = value;
+            }
+        }
+        console.log(newCarriage)
+    }
+
+    function paintListItem(item, bgColor, color, choose)
+    {
+        item.style.backgroundColor = bgColor;
+        item.style.color = color;
+        item.dataset.chosen = choose;
+    }
+
+
+
+    function removeCarriage(event)
+    {
+        let to_remove = event.target.tagName === 'I' ? event.target.parentNode.value : event.target.value
+        $.ajax(
+          {
+              method: 'PATCH',
+              url: '/carriages/' + to_remove,
+              data: {"authenticity_token": "<%= form_authenticity_token %>",
+                  "train_id": "<%=@train.id %>",
+                  carriage: {train_id: "", order_number: "" }}
+          }
+        )
+    }
+
+    function addCarriage()
+    {
+        if (newCarriage !== "")
+        {
+            let next_order_number = document.querySelector('#train-carriages-list').childElementCount
+            $.ajax
+            (
+              {
+                  method: 'PATCH',
+                  url: '/carriages/' + newCarriage,
+                  data: {
+                      "authenticity_token": "<%= form_authenticity_token %>",
+                      "train_id": "<%=@train.id %>" ,
+                      carriage: {train_id: <%=@train.id %>, order_number: next_order_number+1}
+                  }
+              }
+            )
+        }
+    }
+
+</script>

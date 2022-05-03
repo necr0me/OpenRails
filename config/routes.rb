@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'trains/index'
+  get 'trains/show'
+  get 'trains/edit'
   devise_for :users
   resources :users, except: [:new, :create]
   resources :routes
@@ -6,6 +9,8 @@ Rails.application.routes.draw do
     patch 'update_station_connections'
   end
   resources :carriages, except: [:show]
+  resources :trains
+
 
   get 'stations/search/:name', to: 'stations#search_stations', as: 'search_stations'
   get 'home/index'

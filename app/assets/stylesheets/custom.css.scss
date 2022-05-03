@@ -14,24 +14,37 @@
 
 .blue
 {
-  font-size: 12px;
+  font-size: 21px;
   margin-right: 12px;
   color: #0b5ed7;
 }
 
 .add-station-container
 {
-  font-size: 15px;
+  font-size: 24px;
   margin-left: 9px;
-  margin-top: -19px;
   color: green;
   width: fit-content;
   cursor: pointer;
 
+  &:before{
+      display: block;
+      background-color: #0b5ed7;
+      width: 4px;
+      content: '';
+      position: relative;
+      top: 0;
+      bottom: 0;
+      left: 19px;
+      height: 8px;
+      margin: -13px 0;
+  }
+
   button
   {
+    margin-left: 1px;
     border-radius: 50%;
-    font-size: 17px;
+    font-size: 24px;
     *
     {
       color: green;
@@ -195,4 +208,27 @@ table *
 .round-button
 {
   border-radius: 50%;
+}
+
+#train-carriages-list
+{
+  list-style: none;
+  li{
+    position: relative;
+    &:before
+    {
+      background-color: #0b5ed7;
+      width: 3px;
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 4px;
+    }
+  }
+
+  /* Stop the line short on the final list item */
+  li:last-child:before { height: auto; }
+  /* Start the line further down on the first list item */
+  li:first-child:before { top: 15px; height: auto; }
 }

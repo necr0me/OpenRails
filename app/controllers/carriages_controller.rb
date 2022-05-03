@@ -13,6 +13,23 @@ class CarriagesController < ApplicationController
     @carriage = Carriage.find(params[:id])
   end
 
+  def update
+    carriage = Carriage.find(params[:id])
+    if params.has_key?(:carriage)
+      carriage.update(carriage_params)
+      if carriage.train_id.nil?
+        carriage.seats.destroy_all
+      else
+        carriage.create_seats
+      end
+    end
+    @train = Train.find(params[:train_id])
+    @carriages = Carriage.where(train_id: nil)
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def destroy
     @carriage = Carriage.find(params[:id])
     if @carriage.destroy
@@ -26,5 +43,11 @@ class CarriagesController < ApplicationController
   def index
     @carriages = Carriage.all.includes(:carriage_type).paginate(page: params[:page], per_page: 7)
     @carriage_types = CarriageType.all
+  end
+
+  private
+
+  def carriage_params
+    params.require(:carriage).permit(:train_id, :order_number)
   end
 end
