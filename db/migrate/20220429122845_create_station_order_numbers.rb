@@ -1,4 +1,4 @@
-class CreateStationsOrders < ActiveRecord::Migration[7.0]
+class CreateStationOrderNumbers < ActiveRecord::Migration[7.0]
   def change
     create_table :station_order_numbers do |t|
       t.references :route, null: false

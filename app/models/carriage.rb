@@ -1,6 +1,6 @@
 class Carriage < ApplicationRecord
   belongs_to :carriage_type
-  belongs_to :train
+  belongs_to :train, optional: true
   has_many :seats, dependent: :destroy
 
   def capacity
