@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_02_095219) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_03_093134) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,7 +26,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_02_095219) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "carriage_type_id"
+    t.integer "order_number"
+    t.bigint "train_id"
     t.index ["carriage_type_id"], name: "index_carriages_on_carriage_type_id"
+    t.index ["train_id"], name: "index_carriages_on_train_id"
   end
 
   create_table "discounts", force: :cascade do |t|
@@ -34,6 +37,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_02_095219) do
     t.integer "value", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "passing_trains", force: :cascade do |t|
+    t.bigint "train_id"
+    t.bigint "station_id"
+    t.datetime "arrival_time"
+    t.datetime "departure_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["station_id"], name: "index_passing_trains_on_station_id"
+    t.index ["train_id"], name: "index_passing_trains_on_train_id"
   end
 
   create_table "routes", force: :cascade do |t|
@@ -76,6 +90,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_02_095219) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "trains", force: :cascade do |t|
+    t.bigint "route_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["route_id"], name: "index_trains_on_route_id"
+  end
+
   create_table "user_infos", force: :cascade do |t|
     t.string "name"
     t.string "surname"
@@ -109,11 +130,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_02_095219) do
   end
 
   add_foreign_key "carriages", "carriage_types"
+  add_foreign_key "carriages", "trains"
+  add_foreign_key "passing_trains", "stations"
+  add_foreign_key "passing_trains", "trains"
   add_foreign_key "seats", "carriages"
   add_foreign_key "station_connections", "stations"
   add_foreign_key "station_connections", "stations", column: "connected_station_id"
   add_foreign_key "station_order_numbers", "routes"
   add_foreign_key "station_order_numbers", "stations"
+  add_foreign_key "trains", "routes"
   add_foreign_key "user_infos", "discounts"
   add_foreign_key "user_infos", "users"
 end
