@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, except: [:new, :create]
   resources :routes
-  resources :stations, except: [:show] do
+  resources :stations do
     patch 'update_station_connections'
   end
   resources :carriages, except: [:show]

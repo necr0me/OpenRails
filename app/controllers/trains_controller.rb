@@ -11,6 +11,7 @@ class TrainsController < ApplicationController
   def edit
     @train = Train.find(params[:id])
     @carriages = Carriage.where(train_id: nil)
+    @routes = Route.all
   end
 
   def create
@@ -19,9 +20,11 @@ class TrainsController < ApplicationController
   end
 
   def update
-    puts params[:train]
+    puts params
     update_stops(params)
-
+    respond_to do |format|
+      format.js
+    end
   end
 
   def destroy

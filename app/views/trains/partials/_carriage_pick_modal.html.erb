@@ -6,7 +6,7 @@
       </div>
       <div class="modal-body">
         <label>Search for carriages: </label>
-        <input type="text" id="carriage-search-input" onkeyup="inputKeyUp()" placeholder="Search...">
+        <input type="text" id="carriage-search-input" onkeyup="inputKeyUp(this)" placeholder="Search...">
         <div style="display: grid; grid-auto-flow: column;">
           <ul id="carriage-ul" class="vertical-menu" style="width: 100%">
             <% carriages.each do |carriage| %>

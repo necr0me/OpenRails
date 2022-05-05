@@ -4,7 +4,7 @@
   <td><%=train.carriages.count %></td>
   <td>
     <% if !train.route.nil? %>
-      <% if train.route.stations.count>2 %>
+      <% if train.route.stations.count>1 %>
         <%= train.route.stations.first.name %> - <%= train.route.stations.last.name %>
       <% end %>
     <% else %>

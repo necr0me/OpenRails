@@ -8,7 +8,7 @@ class Station < ApplicationRecord
   has_many :station_order_numbers, dependent: :destroy
   has_many :routes, :through => :station_order_numbers
 
-  has_many :passing_trains, dependent: :destroy
+  has_many :passing_trains, -> {order(:arrival_time)}, dependent: :destroy
 
   validates :name, presence: true, length: {maximum: 30, minimum: 1}
 

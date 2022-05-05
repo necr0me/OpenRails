@@ -1,0 +1,42 @@
+var pillsTab = document.querySelector('#pills-tab')
+if (pillsTab.querySelector('#stop-pill-tab')===null)
+{
+    pillsTab.innerHTML += '<li id="stop-pill-tab" class="nav-item" role="presentation" style="float: none;">'
+                       +   '<button class="nav-link" id="pills-stops-tab" data-bs-toggle="pill" data-bs-target="#pills-stops" type="button" role="tab" aria-controls="pills-stops" aria-selected="false">Edit stops</button>'
+                       + '</li>'
+}
+
+var tabContent = document.querySelector('#pills-tabContent')
+if (tabContent.querySelector('#pills-stops')===null)
+{
+
+    tabContent.innerHTML += '<div id="pills-stops" class="tab-pane fade">'
+                         +        '<ul class="train-stops-ul">'
+                         +           '<% if @train.stops.count == 0 %>'
+                         +            '<% @train.route.stations.each do |station| %>'
+                         +              '<%= escape_javascript(render partial: "trains/partials/station", locals: { station: station}) %>'
+                         +            '<% end %>'
+                         +           '<% else %>'
+                         +            '<% @train.stops.each do |stop| %>'
+                         +              '<%= escape_javascript(render partial: "trains/partials/stop", locals: { stop: stop}) %>'
+                         +            '<% end %>'
+                         +           '<% end %>'
+                         +         '</ul>'
+                         +         '<button class="btn btn-success" onclick="validate()">Update</button>'
+                         +       '</div>'
+}
+else
+{
+    tabContent.querySelector('#pills-stops').innerHTML ='<ul class="train-stops-ul">'
+                          +           '<% if @train.stops.count == 0 %>'
+                          +            '<% @train.route.stations.each do |station| %>'
+                          +              '<%= escape_javascript(render partial: "trains/partials/station", locals: { station: station}) %>'
+                          +            '<% end %>'
+                          +           '<% else %>'
+                          +            '<% @train.stops.each do |stop| %>'
+                          +              '<%= escape_javascript(render partial: "trains/partials/stop", locals: { stop: stop}) %>'
+                          +            '<% end %>'
+                          +           '<% end %>'
+                          +         '</ul>'
+                          +         '<button class="btn btn-success" onclick="validate()">Update</button>'
+}
