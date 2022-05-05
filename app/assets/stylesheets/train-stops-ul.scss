@@ -1,0 +1,69 @@
+.train-stops-ul
+{
+  list-style: none;
+
+  li:after{
+    background-color: #0d6efd;
+    content: '';
+    width: 3px;
+    height: 37%;
+    position: relative;
+    top: -15px;
+    right: 96.4%
+  }
+  li:before
+  {
+    background-color: #0d6efd;
+    content: '';
+    width: 3px;
+    height: 50%;
+    position: relative;
+    top: 48px;
+    left: 3.2%;
+  }
+  li:first-child:after
+  {
+    height: 0;
+  }
+  li:last-child:before
+  {
+    height: 0;
+  }
+}
+
+.train-stop-li
+{
+  display: flex;
+  flex-direction: row;
+  width: 600px;
+  height: 6vh;
+  margin: 35px 0;
+}
+
+.stop-station-title
+{
+  width: 40%;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.stop-station-inputs
+{
+  width: 60%;
+  border-left: 3px solid #0d6efd;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  padding: 1px 0 0 15px;
+}
+
+.arrival-input, .departure-input
+{
+  border: none;
+}
+
+.arrival-input
+{
+  margin-bottom: 2px;
+  margin-left: 26px;
+}

@@ -1,4 +1,5 @@
 class TrainsController < ApplicationController
+  include TrainsHelper
   def index
     @trains = Train.all.includes(:route, :carriages).paginate(page: params[:page], per_page: 7)
   end
@@ -18,7 +19,9 @@ class TrainsController < ApplicationController
   end
 
   def update
-    puts params
+    puts params[:train]
+    update_stops(params)
+
   end
 
   def destroy
