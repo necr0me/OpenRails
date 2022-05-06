@@ -1,0 +1,17 @@
+<div class="accordion-item" onClick='accClick(event)'>
+  <h2 class="accordion-header" id="heading-<%= route.id %>">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#route-<%= route.id %>" aria-expanded="false" aria-controls="route-<%= route.id %>" style="font-size: 15px">
+      <%= route.name %>
+    </button>
+  </h2>
+  <div id="route-<%= route.id %>" class="accordion-collapse collapse" aria-labelledby="heading-<%= route.id %>" data-bs-parent="#routeAccordion">
+    <div class="accordion-body" style="font-size: 15px">
+      <ul id="route-accordion-ul">
+        <% route.stations.each do |station| %>
+          <li><i class="bi bi-record-circle-fill" style="color: #4290f5; margin-right: 5px;" ></i><%= station.name %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

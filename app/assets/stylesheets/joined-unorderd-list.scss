@@ -1,7 +1,8 @@
-#ordered-stations-list
+#ordered-stations-list, #train-carriages-list
 {
   list-style: none;
   li{
+    font-size: 24px;
     width: fit-content;
     position: relative;
     padding-bottom: 1em;
@@ -23,12 +24,12 @@
   /* The actual line being placed before each list item, tweak width and color as appropriate */
   li:before {
     background-color: #0b5ed7;
-    width: 3px;
+    width: 4px;
     content: '';
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 4px;
+    left: 8px;
   }
 
   /* Stop the line short on the final list item */

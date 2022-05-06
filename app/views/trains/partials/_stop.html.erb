@@ -1,0 +1,12 @@
+<li id="station-<%= stop.station_id %>" class="train-stop-li">
+  <i class="bi bi-geo-alt blue" style="font-size: 36px"></i>
+  <div class="stop-station-title"><%= stop.station.name %></div>
+  <div class="stop-station-inputs">
+    <div>
+      Arrival time: <input id="stop-arr-<%= stop.station_id %>" value='<%= stop.arrival_time.strftime("%Y-%m-%dT%H:%M")%>' class="arrival-input" type="datetime-local">
+    </div>
+    <div>
+      Departure time: <input id="stop-dep-<%= stop.station_id %>" value='<%= stop.departure_time.strftime("%Y-%m-%dT%H:%M")%>' class="departure-input" type="datetime-local">
+    </div>
+  </div>
+</li>

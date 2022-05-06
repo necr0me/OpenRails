@@ -1,7 +1,7 @@
 <% provide(:title, "Edit route") %>
 <%= form_for(@route) do |f| %>
 <% end %>
-
+<div class="center-container">
 <ul id="ordered-stations-list">
 <% @route.stations.each do |station| %>
   <li id='os-<%= station.id %>'>
@@ -17,8 +17,10 @@
 </button>
 Add new station
 </div>
+</div>
+<%= render partial: 'routes/partials/station_pick_modal', locals: { stations: @connected_stations}%>
 
-<%= render partial: 'station_pick_modal', locals: { stations: @connected_stations}%>
+<%= javascript_include_tag "route/edit" %>
 
 <script>
     window.onload = function()
@@ -26,67 +28,13 @@ Add new station
         let lastListItem = document.querySelector("#ordered-stations-list").lastElementChild
         lastListItem.innerHTML += '<button id="station_remove_button" '
                                 + 'class="btn" '
-                                + 'style="font-size: 12px; color: red;" '
+                                + 'style="font-size: 12px; color: red; margin-left: 20px" '
                                 + 'value="' + lastListItem.id.substring('os-'.length) + '" onClick=removeStation(event)>'
                                 + '<i class="bi bi-x-circle"></i></button>'
     }
 
     let newStation = ""
     const offsetIndex = 'station-'.length;
-
-    function inputKeyUp()
-    {
-        var input, filter, ul, li, a, i, txtValue;
-        input = document.getElementById('station-search-input');
-        filter = input.value.toUpperCase();
-        ul = document.getElementById("station-ul");
-        li = ul.getElementsByTagName('li');
-
-        // Loop through all list items, and hide those who don't match the search query
-        for (i = 0; i < li.length; i++) {
-            a = li[i].getElementsByTagName("a")[0];
-            txtValue = a.textContent || a.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                li[i].style.display = "";
-            } else {
-                li[i].style.display = "none";
-            }
-        }
-    }
-
-    function stationClick(id)
-    {
-        const value = id.substring(offsetIndex)
-        const station = document.getElementById(id)
-        if (newStation === "")
-        {
-            paintListItem(station, 'cornflowerBlue', 'white', 'true')
-            newStation = value;
-        }
-        else
-        {
-            if(station.dataset.chosen === 'true')
-            {
-                paintListItem(station, '#eee', 'black', 'false')
-                newStation = "";
-            }
-            else
-            {
-                const prevStation = document.getElementById('station-' + newStation);
-                paintListItem(prevStation, '#eee', 'black', 'false')
-                paintListItem(station, 'cornflowerBlue', 'white', 'true')
-                newStation = value;
-            }
-        }
-        console.log(newStation)
-    }
-
-    function paintListItem(item, bgColor, color, choose)
-    {
-        item.style.backgroundColor = bgColor;
-        item.style.color = color;
-        item.dataset.chosen = choose;
-    }
 
     function addStation()
     {

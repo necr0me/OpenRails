@@ -1,0 +1,24 @@
+<tr class="train-row" id="train-<%= train.id%>">
+  <th><%=train.id %></th>
+  <td><%=train.name%></td>
+  <td><%=train.carriages.count %></td>
+  <td>
+    <% if !train.route.nil? %>
+      <% if train.route.stations.count>1 %>
+        <%= train.route.stations.first.name %> - <%= train.route.stations.last.name %>
+      <% end %>
+    <% else %>
+      -
+    <% end %>
+  </td>
+  <td style="width: 20%">
+    <div style="display: flex; flex-direction: row">
+      <%= button_to edit_train_path(train.id), method: :get, class: 'btn btn-outline-primary' do %>
+        <i class="bi bi-pencil-square"></i>
+      <% end %>
+      <%= button_to train_path(train.id), method: :delete, class: 'btn btn-outline-danger', data: { confirm: 'Are you sure?' } do %>
+        <i class="bi bi-trash3"></i>
+      <% end %>
+    </div>
+  </td>
+</tr>

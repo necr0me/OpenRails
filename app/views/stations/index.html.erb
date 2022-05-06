@@ -13,7 +13,7 @@
 </div>
 <div class="output-table">
   <table class="table table-hover">
-    <thead class="thead-dark">
+    <thead class="table-dark">
     <tr>
       <th>id</th>
       <th>Name</th>
@@ -21,7 +21,7 @@
     </tr>
     </thead>
     <tbody>
-    <%= render partial: 'stations/station_row', :collection => @stations, :as => :station  %>
+    <%= render partial: 'stations/partials/station_row', :collection => @stations, :as => :station  %>
     </tbody>
     <%= will_paginate %>
   </table>

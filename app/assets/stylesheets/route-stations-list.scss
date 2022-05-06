@@ -1,0 +1,42 @@
+#route-accordion-ul
+{
+  list-style: none;
+}
+
+#route-accordion-ul > li
+{
+  margin-bottom: -1px;
+}
+
+#route-accordion-ul > li:first-child:before
+{
+  height: 0;
+}
+
+#route-accordion-ul > li:last-child:after
+{
+  height: 0;
+}
+
+#route-accordion-ul > li:after
+{
+  display: block;
+  background-color: #0d6efd;
+  content: '';
+  width: 3px;
+  height: 10px;
+  position: relative;
+  top: -1px;
+  right: -1.7%;
+}
+
+#route-accordion-ul > li:before
+{
+  display: block;
+  background-color: #0d6efd;
+  content: '';
+  width: 3px;
+  height: 8px;
+  position: relative;
+  left: 1.7%;
+}

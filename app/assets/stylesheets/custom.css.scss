@@ -4,6 +4,10 @@
 @import "bootstrap-compass";
 @import "vertical-menu";
 @import "joined-unorderd-list";
+@import "carriage";
+@import "train-stops-ul";
+@import "route-stations-list";
+
 
 // Overriding bootstrap-sass default css style
 .fade
@@ -11,26 +15,44 @@
   opacity: 1;
 }
 
+ul#pills-tab
+{
+  justify-content: center;
+}
+
 .blue
 {
-  font-size: 12px;
+  font-size: 21px;
   margin-right: 12px;
   color: #0b5ed7;
 }
 
 .add-station-container
 {
-  font-size: 15px;
+  font-size: 24px;
   margin-left: 9px;
-  margin-top: -19px;
   color: green;
   width: fit-content;
   cursor: pointer;
 
+  &:before{
+      display: block;
+      background-color: #0b5ed7;
+      width: 4px;
+      content: '';
+      position: relative;
+      top: 0;
+      bottom: 0;
+      left: 19px;
+      height: 8px;
+      margin: -13px 0;
+  }
+
   button
   {
+    margin-left: 1px;
     border-radius: 50%;
-    font-size: 17px;
+    font-size: 24px;
     *
     {
       color: green;
@@ -123,7 +145,7 @@ footer
 {
   position: absolute;
   left: 50%;
-  padding: 2px 0 2px 0;
+  padding: 20px 0 0 0;
   transform: translate(-50%, 0);
   h2
   {
@@ -194,4 +216,43 @@ table *
 .round-button
 {
   border-radius: 50%;
+}
+
+#train-carriages-list
+{
+  list-style: none;
+  li{
+    position: relative;
+    &:before
+    {
+      background-color: #0b5ed7;
+      width: 3px;
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 4px;
+    }
+  }
+
+  /* Stop the line short on the final list item */
+  li:last-child:before { height: auto; }
+  /* Start the line further down on the first list item */
+  li:first-child:before { top: 15px; height: auto; }
+}
+
+.route-name-span
+{
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+  display: block;
+  margin: 10px 0;
+}
+
+.centered-horizontally-button
+{
+  font-size: 15px;
+  display: block;
+  margin: 0 auto;
 }

@@ -1,0 +1,159 @@
+<% provide(:title, "Edit train") %>
+<div class="center-container">
+  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li id="carriage-pill-tab" class="nav-item" role="presentation" style="float: none;">
+      <button class="nav-link active" id="pills-carriages-tab" data-bs-toggle="pill" data-bs-target="#pills-carriages" type="button" role="tab" aria-controls="pills-carriages" aria-selected="true">Edit carriages</button>
+    </li>
+    <li id="route-pill-tab" class="nav-item" role="presentation" style="float: none;">
+      <button class="nav-link" id="pills-route-tab" data-bs-toggle="pill" data-bs-target="#pills-route" type="button" role="tab" aria-controls="pills-route" aria-selected="false">Edit route</button>
+    </li>
+    <% unless @train.route.nil? %>
+        <li id="stop-pill-tab" class="nav-item" role="presentation" style="float: none;">
+          <button class="nav-link" id="pills-stops-tab" data-bs-toggle="pill" data-bs-target="#pills-stops" type="button" role="tab" aria-controls="pills-stops" aria-selected="false">Edit stops</button>
+        </li>
+    <% end %>
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+        <div id="pills-carriages" class="tab-pane fade show active" style="margin-top: 30px">
+          <ul id="train-carriages-list" style="list-style: none" >
+            <% @train.carriages.each do |carriage| %>
+              <li id="carriage-<%=carriage.id%>">
+                <i class='bi bi-circle-fill blue'></i>
+                <a href='<%= edit_carriage_path(carriage.id) %>' style="text-decoration: none"><%= carriage.name %></a></li>
+            <% end %>
+          </ul>
+
+          <div class="add-station-container" style="margin-top: 2px" data-bs-toggle="modal" data-bs-target="#add_carriage_modal">
+            <button class="btn btn-link">
+              <span><i class="bi bi-plus-circle"></i></span>
+            </button>
+            Add new carriage
+          </div>
+        </div>
+        <div id="pills-route" class="tab-pane fade">
+          <span class="route-name-span">
+            <% if @train.route.nil? %>
+              Route <strong>is not set</strong>
+            <% else %>
+              Route: <strong><%= @train.destination %></strong>
+            <% end %>
+          </span>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pick_route_modal"
+                  style="font-size: 15px; display: block; margin: 0 auto">
+            Pick route
+          </button>
+        </div>
+    <% unless @train.route.nil? %>
+        <div id="pills-stops" class="tab-pane fade">
+            <ul class="train-stops-ul">
+              <% if @train.stops.count == 0 %>
+                <% @train.route.stations.each do |station| %>
+                  <%= render partial: 'trains/partials/station', locals: { station: station} %>
+                <% end %>
+              <% else %>
+                <% @train.stops.each do |stop| %>
+                  <%= render partial: 'trains/partials/stop', locals: { stop: stop} %>
+                <% end %>
+              <% end %>
+            </ul>
+            <button class="btn btn-success" onclick="validate()"
+              style="font-size: 15px; display: block; margin: 0 auto">
+              Update
+            </button>
+        </div>
+    <% end %>
+  </div>
+</div>
+
+<%= render partial: 'trains/partials/carriage_pick_modal', :locals => { :carriages => @carriages} %>
+<%= render partial: 'trains/partials/route_pick_modal', :locals => { :routes => @routes} %>
+
+
+<%= javascript_include_tag "train/edit_carriages" %>
+<%= javascript_include_tag "train/edit_route" %>
+<%= javascript_include_tag "train/edit_stops" %>
+
+<script>
+    const stops = []
+    let newCarriage=""
+    let carriageOffsetIndex="carriage-".length
+    var route = ""
+
+    window.onload = function()
+    {
+        let query = document.querySelector("#train-carriages-list")
+        if (query !== null)
+        {
+            let lastListItem = document.querySelector("#train-carriages-list").lastElementChild
+            lastListItem.innerHTML += '<button id="carriage_remove_button" '
+              + 'class="btn" '
+              + 'style="font-size: 12px; color: red; margin-left: 20px" '
+              + 'value="' + lastListItem.id.substring(carriageOffsetIndex) + '" onClick=removeCarriage(event)>'
+              + '<i class="bi bi-x-circle"></i></button>'
+        }
+    }
+
+
+    function addRoute()
+    {
+        if (route !== "")
+        {
+            $.ajax({
+                method: 'PATCH',
+                url: '/trains/' + <%= @train.id %>,
+                data: {
+                    "authenticity_token" : "<%= form_authenticity_token %>",
+                    train: { route_id: route }
+                }
+            })
+        }
+    }
+
+    function removeCarriage(event)
+    {
+        let to_remove = event.target.tagName === 'I' ? event.target.parentNode.value : event.target.value
+        $.ajax(
+          {
+              method: 'PATCH',
+              url: '/carriages/' + to_remove,
+              data: {"authenticity_token": "<%= form_authenticity_token %>",
+                  "train_id": "<%=@train.id %>",
+                  carriage: {train_id: "", order_number: "" }}
+          }
+        )
+    }
+
+    function addCarriage()
+    {
+        if (newCarriage !== "")
+        {
+            let next_order_number = document.querySelector('#train-carriages-list').childElementCount
+            $.ajax
+            (
+              {
+                  method: 'PATCH',
+                  url: '/carriages/' + newCarriage,
+                  data: {
+                      "authenticity_token": "<%= form_authenticity_token %>",
+                      "train_id": "<%=@train.id %>" ,
+                      carriage: {train_id: <%=@train.id %>, order_number: next_order_number+1}
+                  }
+              }
+            )
+        }
+    }
+
+
+    function updateStops(stops)
+    {
+        $.ajax(
+          {
+              method: 'PATCH',
+              url: '/trains/' + <%= @train.id %>,
+              data: {"authenticity_token": "<%= form_authenticity_token %>", train: { stops: stops } }
+          }
+
+        )
+    }
+
+</script>

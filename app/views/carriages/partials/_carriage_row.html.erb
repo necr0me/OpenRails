@@ -1,0 +1,23 @@
+<tr class="carriage-row" id="carriage-<%= carriage.id%>">
+  <th><%=carriage.id %></th>
+  <td><%=carriage.name %></td>
+  <td><%=carriage.carriage_type.name %></td>
+  <td><%=carriage.capacity %></td>
+  <% if carriage.train.nil? %>
+    <td>-</td>
+    <td>-</td>
+  <% else %>
+    <td><%=carriage.train_id %></td>
+    <td><%=carriage.order_number %></td>
+  <% end %>
+  <td style="width: 20%">
+    <div style="display: flex; flex-direction: row">
+      <%= button_to edit_carriage_path(carriage.id), method: :get, class: 'btn btn-outline-primary' do %>
+        <i class="bi bi-pencil-square"></i>
+      <% end %>
+      <%= button_to carriage_path(carriage.id), method: :delete, class: 'btn btn-outline-danger', data: { confirm: 'Are you sure?' } do %>
+        <i class="bi bi-trash3"></i>
+      <% end %>
+    </div>
+  </td>
+</tr>

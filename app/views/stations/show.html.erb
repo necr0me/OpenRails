@@ -1,2 +1,22 @@
-<h1>Stations#show</h1>
-<p>Find me in app/views/stations/show.html.erb</p>
+<% provide(:title, @station.name + " table") %>
+<h1 style="margin: 10px 0; text-align: center"><%=@station.name %> passing trains table</h1>
+<table class="table table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>Name</th>
+      <th>Destination</th>
+      <th>Arrival</th>
+      <th>Departure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @station.passing_trains.each do |train| %>
+      <tr style="height: 65px; ">
+        <td>#</td>
+        <td><%= train.destination %></td>
+        <td><%= train.arrival_time.strftime("%d/%m/%Y, %H:%M") %></td>
+        <td><%= train.departure_time.strftime("%d/%m/%Y, %H:%M") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

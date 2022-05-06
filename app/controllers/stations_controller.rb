@@ -19,6 +19,10 @@ class StationsController < ApplicationController
     @stations = Station.where("name LIKE :prefix", prefix: "#{params[:name]}%").order(id: :ASC).paginate(page: params[:page], per_page: 7)
   end
 
+  def show
+    @station = Station.find(params[:id])
+  end
+
   def edit
     @station = Station.find(params[:id])
     @stations = Station.where.not(id: params[:id])

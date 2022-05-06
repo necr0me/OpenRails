@@ -1,0 +1,45 @@
+// Tabs
+var pillsTab = document.querySelector('#pills-tab')
+if (pillsTab.querySelector('#stop-pill-tab')===null)
+{
+    pillsTab.innerHTML += '<li id="stop-pill-tab" class="nav-item" role="presentation" style="float: none;">'
+                       +   '<button class="nav-link" id="pills-stops-tab" data-bs-toggle="pill" data-bs-target="#pills-stops" type="button" role="tab" aria-controls="pills-stops" aria-selected="false">Edit stops</button>'
+                       + '</li>'
+}
+
+// Route
+var tabContent = document.querySelector('#pills-tabContent')
+tabContent.querySelector('#pills-route').innerHTML =  ' <span class="route-name-span">'
+                                                   +  ' <% if @train.route.nil? %>'
+                                                   +        'Route <strong>is not set</strong>'
+                                                   +   '<% else %>'
+                                                   +         'Route: <strong><%= @train.destination %></strong>'
+                                                   +   '<% end %>'
+                                                   +   '</span>'
+                                                   + '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pick_route_modal" '
+                                                   + 'style="font-size: 15px; display: block; margin: 0 auto">Pick route</button>'
+
+//Stops
+var stopsContent =  '<ul class="train-stops-ul">'
+  +           '<% if @train.stops.count == 0 %>'
+  +            '<% @train.route.stations.each do |station| %>'
+  +              '<%= escape_javascript(render partial: "trains/partials/station", locals: { station: station}) %>'
+  +            '<% end %>'
+  +           '<% else %>'
+  +            '<% @train.stops.each do |stop| %>'
+  +              '<%= escape_javascript(render partial: "trains/partials/stop", locals: { stop: stop}) %>'
+  +            '<% end %>'
+  +           '<% end %>'
+  +         '</ul>'
+  +         '<button class="btn btn-success" onclick="validate()" style="font-size: 15px; display: block; margin: 0 auto">Update</button>'
+if (tabContent.querySelector('#pills-stops')===null)
+{
+
+    tabContent.innerHTML += '<div id="pills-stops" class="tab-pane fade">'
+                         + stopsContent
+                         + '</div>'
+}
+else
+{
+    tabContent.querySelector('#pills-stops').innerHTML = stopsContent
+}

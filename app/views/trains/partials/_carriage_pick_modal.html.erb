@@ -1,0 +1,24 @@
+<div class="modal fade" id="add_carriage_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width: 430px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick="cancelHide()"></button>
+      </div>
+      <div class="modal-body">
+        <label>Search for carriages: </label>
+        <input type="text" id="carriage-search-input" onkeyup="inputKeyUp(this)" placeholder="Search...">
+        <div style="display: grid; grid-auto-flow: column;">
+          <ul id="carriage-ul" class="vertical-menu" style="width: 100%">
+            <% carriages.each do |carriage| %>
+              <li><a id="carriage-<%=carriage.id %>" onclick="carriageClick(this.id)" data-chosen="false"><%= carriage.name %> (Capacity: <%=carriage.capacity %>)</a></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="carriage_add_submit" onclick=addCarriage()>Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="modal fade" id="pick_route_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width: 430px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick="cancelHide()"></button>
+      </div>
+      <div class="modal-body">
+        <label>Search for routes: </label>
+        <input type="text" id="route-search-input" onkeyup="inputKeyUpRoute(this)" placeholder="Search...">
+        <br>
+        <label style="margin-top: 2vh;">Routes: </label>
+        <div id="routeAccordion" style="height: 25vh; overflow-y: auto">
+          <%= render partial: 'trains/partials/route_accordion', collection: routes, as: :route %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="route_pick_submit" onclick=addRoute()>Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
