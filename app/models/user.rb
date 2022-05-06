@@ -5,5 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   enum role: [:user, :moderator, :admin]
   has_one :user_info, dependent: :destroy
+  has_one :ticket, dependent: :destroy
   accepts_nested_attributes_for(:user_info, allow_destroy: true)
 end
