@@ -1,12 +1,13 @@
 <tr class='station-row' id="station-<%= station.id %>">
   <th scope="row"><%=station.id %></th>
-  <td> <% if station.passing_trains.nil? %>
-      <%= station.name%>
+  <td> <% if station.passing_trains.count==0 %>
+      <%= station.name %>
     <% else %>
-      <%= link_to station_path(station.id), method: :get do %>
-        <%= station.name%>
+      <%= link_to station_path(station.id), method: :get, style: "margin: 0" do %>
+        <%= station.name %>
       <% end %>
-    <% end %></td>
+    <% end %>
+  </td>
   <td style="width: 20%">
     <div style="display: flex; flex-direction: row;">
       <%= button_to edit_station_path(station.id), method: :get, class: 'btn btn-outline-primary' do %>

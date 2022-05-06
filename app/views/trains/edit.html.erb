@@ -55,6 +55,11 @@
 <%= render partial: 'trains/partials/carriage_pick_modal', :locals => { :carriages => @carriages} %>
 <%= render partial: 'trains/partials/route_pick_modal', :locals => { :routes => @routes} %>
 
+
+<%= javascript_include_tag "train/edit_carriages" %>
+<%= javascript_include_tag "train/edit_route" %>
+<%= javascript_include_tag "train/edit_stops" %>
+
 <script>
     const stops = []
     let newCarriage=""
@@ -75,42 +80,6 @@
         }
     }
 
-    function inputKeyUp(input)
-    {
-        var filter, ul, li, a, i, txtValue;
-        filter = input.value.toUpperCase();
-        ul = document.getElementById("carriage-ul");
-        li = ul.getElementsByTagName('li');
-
-        // Loop through all list items, and hide those who don't match the search query
-        for (i = 0; i < li.length; i++) {
-            a = li[i].getElementsByTagName("a")[0];
-            txtValue = a.textContent || a.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                li[i].style.display = "";
-            } else {
-                li[i].style.display = "none";
-            }
-        }
-    }
-
-    function inputKeyUpRoute(input)
-    {
-
-    }
-
-    function accClick(event)
-    {
-        if (event.target.tagName === 'BUTTON')
-        {
-            let targetId = event.target.dataset.bsTarget.substring('#route-'.length)
-            if (targetId === route)
-                route = ""
-            else
-                route = targetId
-        }
-        console.log(route)
-    }
 
     function addRoute()
     {
@@ -125,40 +94,6 @@
                 }
             })
         }
-    }
-
-    function carriageClick(id)
-    {
-        const value = id.substring(carriageOffsetIndex)
-        const carriage = document.getElementById(id)
-        if (newCarriage === "")
-        {
-            paintListItem(carriage, 'cornflowerBlue', 'white', 'true')
-            newCarriage = value;
-        }
-        else
-        {
-            if(carriage.dataset.chosen === 'true')
-            {
-                paintListItem(carriage, '#eee', 'black', 'false')
-                newCarriage = "";
-            }
-            else
-            {
-                const prevCarriage = document.getElementById('carriage-' + newCarriage);
-                paintListItem(prevCarriage, '#eee', 'black', 'false')
-                paintListItem(carriage, 'cornflowerBlue', 'white', 'true')
-                newCarriage = value;
-            }
-        }
-        console.log(newCarriage)
-    }
-
-    function paintListItem(item, bgColor, color, choose)
-    {
-        item.style.backgroundColor = bgColor;
-        item.style.color = color;
-        item.dataset.chosen = choose;
     }
 
     function removeCarriage(event)
@@ -195,95 +130,6 @@
         }
     }
 
-    function validate()
-    {
-        let list = document.querySelectorAll('.train-stops-ul > li')
-        var isValid = true
-        var lastValidInput
-        console.log(list)
-        list.forEach((li) =>
-        {
-            li.querySelector('i').style.color = "#0b5ed7"
-            let id = li.id.substring('station-'.length)
-            let arrInput = li.querySelector('#stop-arr-'+id)
-            let depInput = li.querySelector('#stop-dep-'+id)
-            if (arrInput.value!== "" && depInput.value !== "")
-            {
-                if( lastValidInput !== undefined && Date.parse(arrInput.value)<Date.parse(lastValidInput.value))
-                {
-                    li.querySelector('i').style.color = "red"
-                    isValid=false
-                    return
-                }
-                if (validateInput(arrInput) && validateInput(depInput))
-                {
-                    if (validateInputs(arrInput, depInput))
-                    {
-                        lastValidInput = depInput
-                        stops.push({station_id: li.id.substring('station-'.length),
-                            arrival_time: arrInput.value,
-                            departure_time: depInput.value})
-                        paintDiv(li.querySelector('.stop-station-inputs'), "#0d6efd")
-                    }
-                    else
-                    {
-                        paintDiv(li.querySelector('.stop-station-inputs'), "red")
-                        isValid = false
-                    }
-                }
-                else
-                {
-                    isValid = false
-                }
-            }
-            else
-            {
-                paintBorder(arrInput, "red")
-                paintBorder(depInput, "red")
-                isValid = false
-            }
-            console.log(li)
-            if (lastValidInput!== undefined)
-                console.log(lastValidInput)
-        })
-        console.log(stops)
-        console.log(isValid)
-        if (!isValid)
-            stops.length = 0
-        else
-            updateStops(stops)
-    }
-
-    function validateInput(input)
-    {
-        if(Date.parse(input.value) < Date.now())
-        {
-            paintBorder(input, 'red')
-            return false
-        }
-        clearBorder(input)
-        return true
-    }
-
-    function validateInputs(inputArr, inputDep)
-    {
-        return Date.parse(inputArr.value) <= Date.parse(inputDep.value);
-    }
-
-    function paintBorder(item, color)
-    {
-        item.style.borderBottom = "1px solid "+ color;
-    }
-
-    function paintDiv(div, color)
-    {
-        div.style.borderLeft = "3px solid " + color
-    }
-
-    function clearBorder(item)
-    {
-        item.style.border = "none";
-    }
 
     function updateStops(stops)
     {
@@ -296,4 +142,5 @@
 
         )
     }
+
 </script>
