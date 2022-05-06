@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :stations do
     patch 'update_station_connections'
   end
-  resources :carriages, except: [:show]
+  resources :carriages, except: [:edit]
   resources :trains
 
 

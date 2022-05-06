@@ -1,0 +1,34 @@
+<div class="center-container">
+  <div class="carriage">
+    <div class="coupes upper-coupes">
+      <div class="wc">
+        <div class="coupe-side"></div>
+        WC
+        <div class="coupe-side"></div>
+      </div>
+      <div class="conductor">
+        <div class="coupe-side"></div>
+        C
+        <div class="coupe-side"></div>
+      </div>
+      <% seats[0..(seats.count/per_row)*per_upper_row-1].each_slice(per_upper_row) do |s| %><div class="coupe">
+      <div class="top"><button class="square-button upper-place"><%="%02d" % s[0].number %></button><button class="square-button upper-place"><%="%02d" % s[3].number %></button></div>
+      <% if car_type == :coupe %>
+        <div class="bottom-alter">
+      <%else %>
+        <div class="bottom">
+      <%end %><button class="square-button bottom-place"><%="%02d" % s[1].number %></button><button class="square-button bottom-place"><%="%02d" % s[2].number %></button></div>
+      </div><% end %>
+      <div class="wc">
+        <div class="coupe-side"></div>
+        WC
+        <div class="coupe-side"></div>
+      </div>
+    </div>
+    <div class="coupes bottom-coupes">
+      <div class="tea-zone">T</div>
+      <% if car_type != :coupe %><% seats[-(seats.count/per_row)*per_bottom_row..-1].to_a.reverse.each_slice(per_bottom_row) do |s| %><div class="coupe bottom-coupe">
+      <div class="bottom-block"><button class="square-button upper-place"><%="%02d" % s[0].number %></button><button class="square-button bottom-place"><%="%02d" % s[1].number %></button></div>
+    </div><% end %><% end %></div>
+  </div>
+</div>

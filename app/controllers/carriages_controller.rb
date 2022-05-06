@@ -9,7 +9,7 @@ class CarriagesController < ApplicationController
     render js: "window.location = '#{carriages_path}'"
   end
 
-  def edit
+  def show
     @carriage = Carriage.find(params[:id])
   end
 

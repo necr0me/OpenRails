@@ -1,0 +1,14 @@
+<% provide(:title, "Edit") %>
+<% if @carriage.carriage_type.name == 'First-class' %>
+  <%= render partial: 'carriages/partials/passenger-carriage', locals: { car_type: :coupe,
+                                                                         seats: @carriage.seats,
+                                                                         per_row: 4,
+                                                                         per_upper_row: 4,
+                                                                         per_bottom_row: 0} %>
+<% elsif @carriage.carriage_type.name == 'Second-class' %>
+  <%= render partial: 'carriages/partials/passenger-carriage', locals: { car_type: :plac,
+                                                                         seats: @carriage.seats,
+                                                                         per_row: 6,
+                                                                         per_upper_row: 4,
+                                                                         per_bottom_row: 2} %>
+<% end %>
