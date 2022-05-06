@@ -11,11 +11,11 @@
   </thead>
   <tbody>
     <% @station.passing_trains.each do |train| %>
-      <tr style="height: 65px; background-color: #b0f0ff">
-        <td>0001</td>
+      <tr style="height: 65px; ">
+        <td>#</td>
         <td><%= train.destination %></td>
-        <td><%= train.arrival_time %></td>
-        <td><%= train.departure_time %></td>
+        <td><%= train.arrival_time.strftime("%d/%m/%Y, %H:%M") %></td>
+        <td><%= train.departure_time.strftime("%d/%m/%Y, %H:%M") %></td>
       </tr>
     <% end %>
   </tbody>
