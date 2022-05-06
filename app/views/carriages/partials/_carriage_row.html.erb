@@ -3,8 +3,13 @@
   <td><%=carriage.name %></td>
   <td><%=carriage.carriage_type.name %></td>
   <td><%=carriage.capacity %></td>
-  <td>-</td>
-  <td>-</td>
+  <% if carriage.train.nil? %>
+    <td>-</td>
+    <td>-</td>
+  <% else %>
+    <td><%=carriage.train_id %></td>
+    <td><%=carriage.order_number %></td>
+  <% end %>
   <td style="width: 20%">
     <div style="display: flex; flex-direction: row">
       <%= button_to edit_carriage_path(carriage.id), method: :get, class: 'btn btn-outline-primary' do %>

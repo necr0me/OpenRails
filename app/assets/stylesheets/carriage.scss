@@ -109,11 +109,36 @@
   border-right: 3px solid #4290f5;
   font-size: 20px;
   color: #4290f5;
-  padding-left: 1%;
+  padding-left: 1vh;
 }
 
 .coupe-side
 {
   width: 13%;
   border-bottom: 3px solid #4290f5;
+}
+
+.bottom-alter {
+  display: block;
+
+  &:after {
+    position: relative;
+    display: block;
+    background-color: #4290f5;
+    content: '';
+    height: 3px;
+    width: 15px;
+    bottom: 7px;
+    left: 72px;
+  }
+
+  &:before {
+    position: relative;
+    display: block;
+    bottom: -47px;
+    background-color: #4290f5;
+    content: '';
+    height: 3px;
+    width: 15px;
+  }
 }

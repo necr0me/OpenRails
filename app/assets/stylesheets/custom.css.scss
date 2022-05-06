@@ -6,11 +6,18 @@
 @import "joined-unorderd-list";
 @import "carriage";
 @import "train-stops-ul";
+@import "route-stations-list";
+
 
 // Overriding bootstrap-sass default css style
 .fade
 {
   opacity: 1;
+}
+
+ul#pills-tab
+{
+  justify-content: center;
 }
 
 .blue
@@ -232,4 +239,20 @@ table *
   li:last-child:before { height: auto; }
   /* Start the line further down on the first list item */
   li:first-child:before { top: 15px; height: auto; }
+}
+
+.route-name-span
+{
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+  display: block;
+  margin: 10px 0;
+}
+
+.centered-horizontally-button
+{
+  font-size: 15px;
+  display: block;
+  margin: 0 auto;
 }

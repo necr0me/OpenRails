@@ -31,7 +31,17 @@
           </div>
         </div>
         <div id="pills-route" class="tab-pane fade">
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pick_route_modal">Pick route</button>
+          <span class="route-name-span">
+            <% if @train.route.nil? %>
+              Route <strong>is not set</strong>
+            <% else %>
+              Route: <strong><%= @train.destination %></strong>
+            <% end %>
+          </span>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pick_route_modal"
+                  style="font-size: 15px; display: block; margin: 0 auto">
+            Pick route
+          </button>
         </div>
     <% unless @train.route.nil? %>
         <div id="pills-stops" class="tab-pane fade">
@@ -46,7 +56,10 @@
                 <% end %>
               <% end %>
             </ul>
-            <button class="btn btn-success" onclick="validate()">Update</button>
+            <button class="btn btn-success" onclick="validate()"
+              style="font-size: 15px; display: block; margin: 0 auto">
+              Update
+            </button>
         </div>
     <% end %>
   </div>
