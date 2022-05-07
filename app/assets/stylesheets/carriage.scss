@@ -7,6 +7,12 @@
   font-size: 20px;
   color: white;
   margin: 0 5% 15% 5%;
+  &:disabled
+  {
+    background-color: #a5ddfa;
+    border: 3px solid #a5ddfa;
+    border-top: 3px solid orange;
+  }
 }
 
 .carriage-left-part

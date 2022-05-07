@@ -4,4 +4,7 @@
   <td><%= t.arrival_time %></td>
   <td>-</td>
   <td>-</td>
+  <% if current_user %>
+    <td><%= link_to "Buy", train_path(t.train_id), class: "btn btn-primary" %></td>
+  <% end %>
 </tr>

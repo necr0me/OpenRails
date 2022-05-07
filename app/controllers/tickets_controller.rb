@@ -9,9 +9,8 @@ class TicketsController < ApplicationController
       @trains = PassingTrain.where(station_id: @departure_station.id)
     else
       if @arrival_station
-      # @trains = PassingTrain.where(station_id: @departure_station.id)
-      #                       .and(PassingTrain.where(train_id: PassingTrain.where(station_id: @arrival_station.id).select(:train_id).map(&:train_id)))
-      #
+      @trains = PassingTrain.where(station_id: @departure_station.id)
+                            .and(PassingTrain.where(train_id: PassingTrain.where(station_id: @arrival_station.id).select(:train_id).map(&:train_id)))
       end
     end
     puts @trains.to_a.inspect
@@ -19,6 +18,7 @@ class TicketsController < ApplicationController
 
   def create
     @ticket = Ticket.create(ticket_params)
+    @seat = Seat.find(params[:ticket][:seat_id]).update(is_taken: true)
   end
 
   def update
@@ -27,13 +27,12 @@ class TicketsController < ApplicationController
   end
 
   def destroy
-    puts params
     @ticket = Ticket.find(params[:id])
   end
 
   private
 
   def ticket_params
-    params.require(:ticket).permit(:user_id)
+    params.require(:ticket).permit(:user_id, :seat_id)
   end
 end

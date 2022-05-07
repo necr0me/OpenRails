@@ -56,6 +56,10 @@
                 <% end %>
               <% end %>
             </ul>
+          <button class="btn btn-danger" id="errors_examples_btn"
+                  style="font-size: 15px; display: none; margin: 10px auto" data-bs-toggle="modal" data-bs-target="#errors_examples_modal">
+            Errors examples
+          </button>
             <button class="btn btn-success" onclick="validate()"
               style="font-size: 15px; display: block; margin: 0 auto">
               Update
@@ -67,7 +71,7 @@
 
 <%= render partial: 'trains/partials/carriage_pick_modal', :locals => { :carriages => @carriages} %>
 <%= render partial: 'trains/partials/route_pick_modal', :locals => { :routes => @routes} %>
-
+<%= render partial: 'trains/partials/errors_examples_modal' %>
 
 <%= javascript_include_tag "train/edit_carriages" %>
 <%= javascript_include_tag "train/edit_route" %>

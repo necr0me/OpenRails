@@ -1,6 +1,6 @@
 var output = document.querySelector("#trains-result-table")
 <% if @trains.count == 0 %>
-  output.innerHTML = '<h2>There is not trains from <%= params[:start] %> to <%= params[:finish] %> </h2>'
+  output.innerHTML = '<h2>There is no trains from <%= params[:start] %> to <%= params[:finish] %> </h2>'
 <% else %>
   output.innerHTML = '<h2>Trains from <%= params[:start] %> to <%= params[:finish] %> </h2>'
                     + '<%= escape_javascript(render partial: 'tickets/partials/trains_table', locals: { trains: @trains }) %>'
