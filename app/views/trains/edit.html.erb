@@ -84,7 +84,11 @@
     var route = ""
 
     window.onload = function()
-    {
+    {   $.ajaxSetup({
+          headers: {
+              'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
         let query = document.querySelector("#train-carriages-list")
         if (query !== null)
         {
@@ -95,11 +99,7 @@
               + 'value="' + lastListItem.id.substring(carriageOffsetIndex) + '" onClick=removeCarriage(event)>'
               + '<i class="bi bi-x-circle"></i></button>'
         }
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+
     }
 
 
