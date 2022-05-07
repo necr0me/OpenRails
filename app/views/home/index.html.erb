@@ -1,10 +1,55 @@
 <% provide(:title, "Home page") %>
-<h1 class="center-container" style="text-align: center">
-<% if signed_in? %>
-  Hi, <%= current_user.email %>!
-  <br>
-  Your current role is <%= current_user.role %>
-<% else %>
-  Hi!
-<% end %>
-</h1>
+<div class="center-container">
+  <div class="search-inputs" style="font-size: 15px">
+    <label for="departure-station">From: </label>
+    <input type="text" id="departure-station" onkeyup="keyUp(this)">
+    <i class="bi bi-arrow-left-right" style="margin: 0 15px; cursor: pointer" onclick="switchValues()"></i>
+    <label for="arrival-station">to: </label>
+    <input type="text" id="arrival-station">
+  </div>
+  <div>
+    <button class="btn btn-primary" id="find-trains" style="font-size: 15px; display: block; margin: 10px auto" onclick="find()" disabled>Search</button>
+  </div>
+  <div id="trains-result-table">
+
+  </div>
+</div>
+
+<script>
+  function validate(item)
+  {
+      return item.value === ""
+  }
+
+  function swap(item_a, item_b)
+  {
+      var temp = item_a.value
+      item_a.value = item_b.value
+      item_b.value = temp
+  }
+
+  function switchValues()
+  {
+      swap(document.querySelector('#arrival-station'), document.querySelector('#departure-station'))
+      keyUp(document.querySelector('#departure-station'))
+  }
+
+  function keyUp(input)
+  {
+      document.querySelector('#find-trains').disabled = input.value === "";
+  }
+
+  function find()
+  {
+      var startInput, endInput
+      startInput = document.querySelector('#departure-station')
+      endInput = document.querySelector('#arrival-station')
+      $.ajax(
+          {
+              method: 'GET',
+              url: '/tickets',
+              data: { start: startInput.value, finish: endInput.value }
+          }
+      )
+  }
+</script>
