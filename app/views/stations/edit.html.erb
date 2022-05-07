@@ -64,7 +64,7 @@
                 {
                     method: 'PATCH',
                     url: '/stations/' + <%=@station.id %> + '/update_station_connections',
-                    data: { "authenticity_token": "<%= form_authenticity_token %>", station: {connected_stations: connectionsToAdd}}
+                    data: { station: {connected_stations: connectionsToAdd}}
                 }
             )
         });

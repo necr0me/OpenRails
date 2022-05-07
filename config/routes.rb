@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
   resources :carriages, except: [:edit]
   resources :trains
-  resources :tickets, except: [:show, :new, :edit]
+  resources :tickets, except: [:show, :edit]
 
 
   get 'stations/search/:name', to: 'stations#search_stations', as: 'search_stations'
