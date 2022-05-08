@@ -10,7 +10,7 @@ class Carriage < ApplicationRecord
   end
 
   def create_seats
-    for i in 1..self.capacity do
+    self.capacity.times do |i|
       Seat.create(carriage_id: self.id, number: i)
     end
   end

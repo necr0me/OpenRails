@@ -1,4 +1,5 @@
 class Train < ApplicationRecord
+  before_destroy :destroy_seats
 
   belongs_to :route, optional: true
   has_many :carriages, dependent: :nullify
@@ -19,6 +20,14 @@ class Train < ApplicationRecord
   def create_stops
     self.route.stations.each do |station|
       PassingTrain.create(train_id: self.id, station_id: station.id)
+    end
+  end
+
+  private
+
+  def destroy_seats
+    self.carriages.each do |carriage|
+      carriage.seats.destroy_all
     end
   end
 

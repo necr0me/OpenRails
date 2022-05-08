@@ -1,5 +1,6 @@
 class TrainsController < ApplicationController
   include TrainsHelper
+
   def index
     @trains = Train.all.includes(:route, :carriages).paginate(page: params[:page], per_page: 7)
   end
@@ -22,9 +23,6 @@ class TrainsController < ApplicationController
   def update
     puts params
     @train = update_stops(params)
-    puts @train.stops.count
-    puts @train.stops.to_a.inspect
-    puts @train.stops.any?
     respond_to do |format|
       format.js
     end
