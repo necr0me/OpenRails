@@ -20,14 +20,15 @@ tabContent.querySelector('#pills-route').innerHTML =  ' <span class="route-name-
                                                    + 'style="font-size: 15px; display: block; margin: 0 auto">Pick route</button>'
 
 //Stops
+stops.length = 0
 var stopsContent =  '<ul class="train-stops-ul">'
-  +           '<% if @train.stops.count == 0 %>'
-  +            '<% @train.route.stations.each do |station| %>'
-  +              '<%= escape_javascript(render partial: "trains/partials/station", locals: { station: station}) %>'
-  +            '<% end %>'
-  +           '<% else %>'
+  +           '<% if @train.stops.any? %>'
   +            '<% @train.stops.each do |stop| %>'
   +              '<%= escape_javascript(render partial: "trains/partials/stop", locals: { stop: stop}) %>'
+  +            '<% end %>'
+  +           '<% else %>'
+  +            '<% @train.route.stations.each do |station| %>'
+  +              '<%= escape_javascript(render partial: "trains/partials/station", locals: { station: station}) %>'
   +            '<% end %>'
   +           '<% end %>'
   +         '</ul>'

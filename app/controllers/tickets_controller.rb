@@ -3,7 +3,8 @@ class TicketsController < ApplicationController
 
   def new
     @train = Train.find(params[:train_id])
-    @departure_station = Station.find_by(name: params[:departure_station_name])
+    @departure_station = Station.find(params[:departure_station_id])
+    @arrival_station = Station.find(params[:arrival_station_id])
   end
 
   def create
@@ -40,6 +41,6 @@ class TicketsController < ApplicationController
   private
 
   def ticket_params
-    params.require(:ticket).permit(:user_id, :seat_id, :departure_station_id)
+    params.require(:ticket).permit(:user_id, :seat_id, :departure_station_id, :destination_station_id)
   end
 end

@@ -9,6 +9,8 @@
   <td>-</td>
   <td>-</td>
   <% if current_user && @arrival_station.present? %>
-    <td><%= button_to "Buy", new_ticket_path, method: :get, params: { train_id: t.id, departure_station_name: params[:start] } , class: "btn btn-primary" %></td>
+    <td><%= button_to "Buy", new_ticket_path, method: :get,
+                      params: { train_id: t.id, departure_station_id: @departure_station.id, arrival_station_id: @arrival_station.id },
+                      class: "btn btn-primary" %></td>
   <% end %>
 </tr>

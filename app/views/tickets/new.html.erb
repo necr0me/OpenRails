@@ -13,6 +13,7 @@
 
 <script>
   const departureStation = <%= @departure_station.id %>
+  const arrivalStation = <%= @arrival_station.id %>
   var chosen = "-"
   var chosenButton
 
@@ -75,7 +76,10 @@
               {
                   method: 'POST',
                   url: '/tickets',
-                  data: { ticket: { user_id: <%= current_user.id %>, seat_id: chosen, departure_station_id: departureStation}}
+                  data: { ticket: { user_id: <%= current_user.id %>,
+                                    seat_id: chosen,
+                                    departure_station_id: departureStation,
+                                    destination_station_id: arrivalStation}}
               }
           )
     }

@@ -21,7 +21,10 @@ class TrainsController < ApplicationController
 
   def update
     puts params
-    update_stops(params)
+    @train = update_stops(params)
+    puts @train.stops.count
+    puts @train.stops.to_a.inspect
+    puts @train.stops.any?
     respond_to do |format|
       format.js
     end
