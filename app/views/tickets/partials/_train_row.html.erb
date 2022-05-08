@@ -5,6 +5,6 @@
   <td>-</td>
   <td>-</td>
   <% if current_user %>
-    <td><%= link_to "Buy", train_path(t.train_id), class: "btn btn-primary" %></td>
+    <td><%= button_to "Buy", new_ticket_path, method: :get, params: { train_id: t.train_id } , class: "btn btn-primary" %></td>
   <% end %>
 </tr>

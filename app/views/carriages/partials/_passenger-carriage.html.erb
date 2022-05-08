@@ -1,4 +1,3 @@
-<div class="center-container">
   <div class="carriage">
     <div class="coupes upper-coupes">
       <div class="wc">
@@ -12,16 +11,16 @@
         <div class="coupe-side"></div>
       </div>
       <% seats[0..(seats.count/per_row)*per_upper_row-1].each_slice(per_upper_row) do |s| %><div class="coupe">
-      <div class="top"><button class="square-button upper-place" value="<%= s[0].id%>" onclick="pickSeat(this)"
-                               <%= "disabled" if s[0].is_taken %>><%="%02d" % s[0].number %>
+      <div class="top"><button class="square-button upper-place" value="<%= s[1].id%>" onclick="pickSeat(this)"
+                               <%= "disabled" if s[1].is_taken %>><%="%02d" % s[1].number %>
       </button><button class="square-button upper-place" value="<%= s[3].id %>" onclick="pickSeat(this)"
                        <%= "disabled" if s[3].is_taken %>><%="%02d" % s[3].number %></button></div>
       <% if car_type == :coupe %>
         <div class="bottom-alter">
       <%else %>
         <div class="bottom">
-      <%end %><button class="square-button bottom-place" value="<%=s[1].id %>" onclick="pickSeat(this)"
-                      <%= "disabled" if s[1].is_taken %>><%="%02d" % s[1].number %>
+      <%end %><button class="square-button bottom-place" value="<%=s[0].id %>" onclick="pickSeat(this)"
+                      <%= "disabled" if s[0].is_taken %>><%="%02d" % s[0].number %>
     </button><button class="square-button bottom-place" value="<%= s[2].id %>" onclick="pickSeat(this)"
                      <%= "disabled" if s[2].is_taken %>><%="%02d" % s[2].number %></button></div>
       </div><% end %>
@@ -40,4 +39,4 @@
                        <%= "disabled" if s[1].is_taken %>><%="%02d" % s[1].number %></button></div>
     </div><% end %><% end %></div>
   </div>
-</div>
+

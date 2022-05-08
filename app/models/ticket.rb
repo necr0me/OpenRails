@@ -11,4 +11,5 @@ class Ticket < ApplicationRecord
   def free_seat
     self.seat.update(is_taken: false)
   end
+
 end

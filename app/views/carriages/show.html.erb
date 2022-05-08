@@ -1,9 +1,5 @@
-<% provide(:title, "Edit") %>
-<% if current_user.role == "user" %>
-  <h2 style="text-align: center">Pick place that you want to order</h2>
-  <br>
-  <h2 style="text-align: center">Currently picked place: <span id='picked-place-span'>-</span></h2>
-<% end %>
+<% provide(:title, "Show carriage") %>
+<div class="center-container">
 <% if @carriage.carriage_type.name == 'First-class' %>
   <%= render partial: 'carriages/partials/passenger-carriage', locals: { car_type: :coupe,
                                                                          seats: @carriage.seats,
@@ -17,3 +13,4 @@
                                                                          per_upper_row: 4,
                                                                          per_bottom_row: 2} %>
 <% end %>
+</div>

@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :stations do
     patch 'update_station_connections'
   end
-  resources :carriages, except: [:edit]
+  resources :carriages, except: [:edit] do
+    get 'get_carriage'
+  end
   resources :trains
   resources :tickets, except: [:show, :edit]
 

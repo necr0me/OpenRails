@@ -1,5 +1,24 @@
 class TicketsController < ApplicationController
 
+  def new
+    puts params
+    @train = Train.find(params[:train_id])
+  end
+
+  def create
+    @seat = Seat.find(params[:ticket][:seat_id])
+    if @seat.is_taken
+      respond_to do |format|
+        format.js
+      end
+    else
+      @ticket = Ticket.create(ticket_params)
+      @seat = Seat.find(params[:ticket][:seat_id]).update(is_taken: true)
+      render js: "window.location = '#{user_path(current_user)}'"
+    end
+
+  end
+
   def index
     puts params
     @departure_station = Station.find_by(name: params[:start])
@@ -14,11 +33,6 @@ class TicketsController < ApplicationController
       end
     end
     puts @trains.to_a.inspect
-  end
-
-  def create
-    @ticket = Ticket.create(ticket_params)
-    @seat = Seat.find(params[:ticket][:seat_id]).update(is_taken: true)
   end
 
   def update
