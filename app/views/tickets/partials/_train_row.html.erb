@@ -1,10 +1,14 @@
 <tr style="height: 70px">
-  <td><%= t.train_id %> <%= t.train.destination %></td>
-  <td><%= t.departure_time %></td>
-  <td><%= t.arrival_time %></td>
+  <td><%= t.id %> <%= t.destination %></td>
+  <td><%= t.departure_time_at(@departure_station.id).strftime("%d.%m.%Y, %H:%M") %></td>
+  <td><% if @arrival_station.present? %>
+      <%= t.arrival_time_at(@arrival_station.id).strftime("%d.%m.%Y, %H:%M") %>
+      <% else %>
+          -
+      <% end %></td>
   <td>-</td>
   <td>-</td>
-  <% if current_user %>
-    <td><%= button_to "Buy", new_ticket_path, method: :get, params: { train_id: t.train_id } , class: "btn btn-primary" %></td>
+  <% if current_user && @arrival_station.present? %>
+    <td><%= button_to "Buy", new_ticket_path, method: :get, params: { train_id: t.id, departure_station_name: params[:start] } , class: "btn btn-primary" %></td>
   <% end %>
 </tr>

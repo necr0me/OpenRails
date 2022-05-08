@@ -20,7 +20,7 @@ if (container.querySelector('.carriage') !== null)
     container.querySelector('.carriage').remove()
 
 container.insertAdjacentHTML("beforebegin", '<div id="carriage-h2-div" style="text-align: center; margin: 5px 0"><h2>Choose place you want to order</h2><br>' +
-  '<h2>Currently your chosen place is: <span id="seat-span">-<span></h2></div>')
+  '<h2>Currently your chosen place is: <span id="seat-span" style="color: red">-<span></h2></div>')
 
 container.innerHTML += carriage
 container.innerHTML += '<div id="carriage-order-buttons" style="position: absolute; left: 50%; margin: 10px 0; transform: translate(-50%, 0);">' +

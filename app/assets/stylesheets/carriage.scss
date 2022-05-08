@@ -11,7 +11,14 @@
   {
     background-color: #a5ddfa;
     border: 3px solid #a5ddfa;
+  }
+  &.upper-place:disabled
+  {
     border-top: 3px solid orange;
+  }
+  &.bottom-place:disabled
+  {
+    border-bottom: 3px solid orange;
   }
 }
 

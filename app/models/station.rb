@@ -10,8 +10,8 @@ class Station < ApplicationRecord
 
   has_many :passing_trains, -> {order(:arrival_time)}, dependent: :destroy
 
-  has_many :arrival_tickets, class_name: 'Ticket', foreign_key: :arrival_station_id, dependent: :destroy
-  has_many :departure_tickets, class_name: 'Ticket', foreign_key: :destination_station_id, dependent: :destroy
+  has_many :arrival_tickets, class_name: 'Ticket', foreign_key: :destination_station_id, dependent: :destroy
+  has_many :departure_tickets, class_name: 'Ticket', foreign_key: :departure_station_id, dependent: :destroy
 
   validates :name, presence: true, length: {maximum: 30, minimum: 1}
 

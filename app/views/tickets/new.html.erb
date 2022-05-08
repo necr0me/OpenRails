@@ -12,6 +12,7 @@
 <%= render partial: 'tickets/partials/place_taken_modal' %>
 
 <script>
+  const departureStation = <%= @departure_station.id %>
   var chosen = "-"
   var chosenButton
 
@@ -26,17 +27,33 @@
 
   function pickSeat(item)
   {
-      if (chosen === item.value)
+      if (chosen === '-')
       {
-          chosen = '-'
-          document.querySelector('#seat-span').innerHTML = chosen
-          document.querySelector('#confirm-order-button').disabled = true
-      }
-      else
-      {
+          chosenButton = item
+          chosenButton.style.color = "red"
           chosen = item.value
           document.querySelector('#seat-span').innerHTML = item.textContent
           document.querySelector('#confirm-order-button').disabled = false
+      }
+      else
+      {
+          if (chosenButton.value === item.value)
+          {
+              chosen = '-'
+              chosenButton.style.color = "white"
+              chosenButton = ""
+              document.querySelector('#seat-span').innerHTML = chosen
+              document.querySelector('#confirm-order-button').disabled = true
+          }
+          else
+          {
+              chosenButton.style.color = "white"
+              chosenButton = item
+              chosenButton.style.color = "red"
+              chosen = item.value
+              document.querySelector('#seat-span').innerHTML = item.textContent
+              document.querySelector('#confirm-order-button').disabled = false
+          }
       }
   }
 
@@ -58,7 +75,7 @@
               {
                   method: 'POST',
                   url: '/tickets',
-                  data: { ticket: { user_id: <%= current_user.id %>, seat_id: chosen}}
+                  data: { ticket: { user_id: <%= current_user.id %>, seat_id: chosen, departure_station_id: departureStation}}
               }
           )
     }

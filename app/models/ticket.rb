@@ -3,7 +3,7 @@ class Ticket < ApplicationRecord
 
   belongs_to :user
   belongs_to :seat
-  belongs_to :arrival_station, class_name: 'Station', optional: true
+  belongs_to :departure_station, class_name: 'Station', optional: true
   belongs_to :destination_station, class_name: 'Station', optional: true
 
   private
