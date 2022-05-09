@@ -3,12 +3,16 @@ module TicketsHelper
     trains = []
     starting_station = Station.find_by(name: params[:start])
     if starting_station.present?
-      if params[:finish] == ""
-        trains = Train.where(id: PassingTrain.where(station_id: starting_station.id).map(&:train_id))
-      else
+      if params[:finish].present?
         ending_station = Station.find_by(name: params[:finish])
         if ending_station.present?
-          trains_ids = PassingTrain.where(station_id: starting_station.id).map(&:train_id)
+          trains_ids = []
+          if params[:date].present?
+            trains_ids = PassingTrain.where(station_id: starting_station.id)
+                                     .and(PassingTrain.where("arrival_time > ?", DateTime.parse(params[:date]))).map(&:train_id)
+          else
+            trains_ids = PassingTrain.where(station_id: starting_station.id).map(&:train_id)
+          end
           Train.where(id: trains_ids).each do |train|
             stations_after = train.route.stations_after(starting_station.id).to_a
             if stations_after.include?(ending_station)
@@ -18,6 +22,13 @@ module TicketsHelper
               end
             end
           end
+        end
+      else
+        if params[:date].present?
+          trains = Train.where(id: PassingTrain.where(station_id: starting_station.id)
+                                               .and(PassingTrain.where("arrival_time > ?", DateTime.parse(params[:date]))).map(&:train_id))
+        else
+          trains = Train.where(id: PassingTrain.where(station_id: starting_station.id).map(&:train_id))
         end
       end
     end

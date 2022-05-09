@@ -6,6 +6,8 @@
     <i class="bi bi-arrow-left-right" style="margin: 0 15px; cursor: pointer" onclick="switchValues()"></i>
     <label for="arrival-station">to: </label>
     <input type="text" id="arrival-station">
+    <label for="date-pick" style="margin-left: 10px">Date: </label>
+    <input type="date" id="date-pick">
   </div>
   <div>
     <button class="btn btn-primary" id="find-trains" style="font-size: 15px; display: block; margin: 10px auto" onclick="find()" disabled>Search</button>
@@ -116,14 +118,15 @@
 
   function find()
   {
-      var startInput, endInput
+      var startInput, endInput, dateInput
       startInput = document.querySelector('#departure-station')
       endInput = document.querySelector('#arrival-station')
+      dateInput = document.querySelector('#date-pick')
       $.ajax(
           {
               method: 'GET',
               url: '/tickets',
-              data: { start: startInput.value, finish: endInput.value }
+              data: { start: startInput.value, finish: endInput.value, date: dateInput.value }
           }
       )
   }
