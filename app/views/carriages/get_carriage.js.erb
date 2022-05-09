@@ -17,12 +17,14 @@ var carriage = '<% if @carriage.carriage_type.name == 'First-class' %>'
    + '<% end %> '
 
 if (container.querySelector('.carriage') !== null)
+{
     container.querySelector('.carriage').remove()
+}
 
 container.insertAdjacentHTML("beforebegin", '<div id="carriage-h2-div" style="text-align: center; margin: 5px 0"><h2>Choose place you want to order</h2><br>' +
   '<h2>Currently your chosen place is: <span id="seat-span" style="color: red">-<span></h2></div>')
 
 container.innerHTML += carriage
-container.innerHTML += '<div id="carriage-order-buttons" style="position: absolute; left: 50%; margin: 10px 0; transform: translate(-50%, 0);">' +
+container.innerHTML += '<div id="carriage-order-buttons" style="position: absolute; left: 50%; margin: 147px 0; transform: translate(-50%, 0);">' +
   '<button style="font-size: 15px" class="btn btn-primary" onclick="goBack()">Back</button>' +
   '<button id="confirm-order-button" class="btn btn-success" onclick="makeOrder()" style="font-size: 15px; margin: 0 10px" disabled>Confrim</button></div>'

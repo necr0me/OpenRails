@@ -3,6 +3,7 @@ function goBack()
     document.querySelector('#carriage-pick-h2').style.display = ""
     document.querySelector('#carriage-h2-div').remove()
     document.querySelector('.carriage').remove()
+    document.querySelector('.carriage-example').remove()
     document.querySelector('#carriage-order-buttons').remove()
     document.querySelector('#train-carriages-list').style.display = ""
 }

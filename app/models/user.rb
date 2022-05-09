@@ -11,4 +11,5 @@ class User < ApplicationRecord
   def initials
     self.user_info.present? ? "#{self.user_info.surname} #{self.user_info.name} #{self.user_info.patronymic}" : "user_id: #{self.id}"
   end
+
 end
