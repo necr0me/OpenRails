@@ -34,4 +34,20 @@ class TrainsController < ApplicationController
     redirect_to trains_path
   end
 
+  def get_arrival_stations
+    puts params
+    @train = Train.find(params[:train_id])
+    @departure_station = Station.find(params[:after])
+    stations_ids = Station.where(id: @train.route.station_order_numbers
+                                        .where("order_number > ?",
+                                               @train.route.station_order_numbers
+                                                     .find_by(station_id: @departure_station.id)
+                                                     .order_number).map(&:station_id)).map(&:id)
+    @stations = @train.stops.where(station_id: stations_ids).and(@train.stops.where.not(arrival_time: nil))
+    puts @stations.to_a.inspect
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

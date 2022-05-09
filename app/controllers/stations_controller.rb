@@ -57,7 +57,6 @@ class StationsController < ApplicationController
   end
 
 
-
   private
 
   def station_params

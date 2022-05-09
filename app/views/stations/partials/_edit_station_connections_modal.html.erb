@@ -1,0 +1,27 @@
+<div class="modal fade" id="edit_station_connections_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick="cancelHide()"></button>
+      </div>
+      <div class="modal-body">
+        <label>Search for stations: </label>
+        <input type="text" id="station-search-input" onkeyup="inputKeyUp()" placeholder="Search...">
+        <div><label>Stations:</label></div>
+
+        <div style="display: grid; grid-auto-flow: column;">
+          <ul id="station-ul" class="vertical-menu" style="width: 100%;">
+            <% stations.each do |station|%>
+              <li><a class="stations_to_choose" id="station-<%=station.id%>" onclick="stationClick(this.id)"
+                     data-chosen="<%= concrete_station.connected_stations.include?(station) ? true : false%>"><%=station.name %></a></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="station_connections_add_submit">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>

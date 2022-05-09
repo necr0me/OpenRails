@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   resources :carriages, except: [:edit] do
     get 'get_carriage'
   end
-  resources :trains
+  resources :trains do
+    get 'get_arrival_stations'
+  end
   resources :tickets, except: [:show, :edit]
 
 
