@@ -10,7 +10,20 @@ var list =  '<% if @stations.any? %>'
 
 stationsUl.innerHTML = list
 var modalFooter = document.querySelector('.modal-footer')
-modalFooter.querySelector('#confirm-choice-btn').remove()
+var form = document.querySelector('form#confirm-choice-form')
+if (form!==null)
+{
+    form.remove()
+}
+else
+{
+    modalFooter.querySelector('#confirm-choice-btn').remove()
+}
+
 modalFooter.innerHTML += '<%=button_to "Confirm choice",
-                          new_ticket_path, method: :get, class: "btn btn-primary", id: "confirm-choice-btn",
-                          params: { train_id: @train.id, departure_station_id: @departure_station.id, arrival_station_id: "" }, disabled: true %>'
+                          new_ticket_path, method: :get,
+                          class: "btn btn-primary",
+                          id: "confirm-choice-btn",
+                          form: { id: "confirm-choice-form"},
+                          params: { train_id: @train.id, departure_station_id: @departure_station.id, arrival_station_id: "" },
+                          disabled: true %>'

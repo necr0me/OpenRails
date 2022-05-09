@@ -20,4 +20,9 @@ class Station < ApplicationRecord
                      .or(StationConnection.where(connected_station_id: self.id))
                      .destroy_all
   end
+
+  def self.search(term)
+    where("name LIKE :prefix", prefix: "#{term}%")
+  end
+
 end
