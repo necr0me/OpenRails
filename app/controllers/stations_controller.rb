@@ -16,7 +16,12 @@ class StationsController < ApplicationController
   end
 
   def index
-    @stations = Station.where("name LIKE :prefix", prefix: "#{params[:name]}%").order(id: :ASC).paginate(page: params[:page], per_page: 7)
+    @stations = Station.search(params[:name]).order(id: :ASC).paginate(page: params[:page], per_page: 7)
+  end
+
+  def search_stations
+    @stations = Station.search(params[:term])
+    render json: @stations.map(&:name)
   end
 
   def show
@@ -55,7 +60,6 @@ class StationsController < ApplicationController
     flash[:success] = 'Station deleted.'
     redirect_to stations_path
   end
-
 
 
   private

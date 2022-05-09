@@ -1,0 +1,21 @@
+<tr style="height: 70px">
+  <td><%= t.id %> <%= t.destination %></td>
+  <td><%= t.departure_time_at(@departure_station.id).strftime("%d.%m.%Y, %H:%M") %></td>
+  <td><% if @arrival_station.present? %>
+      <%= t.arrival_time_at(@arrival_station.id).strftime("%d.%m.%Y, %H:%M") %>
+      <% else %>
+          -
+      <% end %></td>
+  <td>-</td>
+  <td>-</td>
+  <% if current_user %>
+    <% if @arrival_station.present? %>
+    <td><%= button_to "Buy", new_ticket_path, method: :get,
+                      params: { train_id: t.id, departure_station_id: @departure_station.id, arrival_station_id: @arrival_station.id },
+                      class: "btn btn-primary" %></td>
+      <% else %>
+    <td><button value="<%= t.id %>" data-dstation="<%= @departure_station.id %>" class="btn btn-primary"
+                data-bs-toggle="modal" data-bs-target="#destination_station_pick_modal" onclick="getStations(this)">Buy</button></td>
+    <%end %>
+  <% end %>
+</tr>

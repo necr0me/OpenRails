@@ -2,7 +2,7 @@ var carriageList = document.querySelector('#train-carriages-list')
 carriageList.innerHTML = '<% @train.carriages.each do |carriage| %>'
                     +    '<li id="carriage-<%=carriage.id%>">'
                     +    '        <i class="bi bi-circle-fill blue"></i> '
-                    +     '<a href="<%= edit_carriage_path(carriage.id) %>" style="text-decoration: none"><%= carriage.name %></a></li>'
+                    +     '<a href="<%= carriage_path(carriage.id) %>" style="text-decoration: none"><%= carriage.name %></a></li>'
                     +     '<% end %>'
 
 if (carriageList.lastElementChild !== null)

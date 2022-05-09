@@ -19,7 +19,7 @@
             <% @train.carriages.each do |carriage| %>
               <li id="carriage-<%=carriage.id%>">
                 <i class='bi bi-circle-fill blue'></i>
-                <a href='<%= edit_carriage_path(carriage.id) %>' style="text-decoration: none"><%= carriage.name %></a></li>
+                <a href='<%= carriage_path(carriage.id) %>' style="text-decoration: none"><%= carriage.name %></a></li>
             <% end %>
           </ul>
 
@@ -56,6 +56,10 @@
                 <% end %>
               <% end %>
             </ul>
+          <button class="btn btn-danger" id="errors_examples_btn"
+                  style="font-size: 15px; display: none; margin: 10px auto" data-bs-toggle="modal" data-bs-target="#errors_examples_modal">
+            Errors examples
+          </button>
             <button class="btn btn-success" onclick="validate()"
               style="font-size: 15px; display: block; margin: 0 auto">
               Update
@@ -67,7 +71,7 @@
 
 <%= render partial: 'trains/partials/carriage_pick_modal', :locals => { :carriages => @carriages} %>
 <%= render partial: 'trains/partials/route_pick_modal', :locals => { :routes => @routes} %>
-
+<%= render partial: 'trains/partials/errors_examples_modal' %>
 
 <%= javascript_include_tag "train/edit_carriages" %>
 <%= javascript_include_tag "train/edit_route" %>
@@ -80,7 +84,11 @@
     var route = ""
 
     window.onload = function()
-    {
+    {   $.ajaxSetup({
+          headers: {
+              'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
         let query = document.querySelector("#train-carriages-list")
         if (query !== null)
         {
@@ -91,6 +99,7 @@
               + 'value="' + lastListItem.id.substring(carriageOffsetIndex) + '" onClick=removeCarriage(event)>'
               + '<i class="bi bi-x-circle"></i></button>'
         }
+
     }
 
 
@@ -101,9 +110,7 @@
             $.ajax({
                 method: 'PATCH',
                 url: '/trains/' + <%= @train.id %>,
-                data: {
-                    "authenticity_token" : "<%= form_authenticity_token %>",
-                    train: { route_id: route }
+                data: { train: { route_id: route }
                 }
             })
         }
@@ -116,8 +123,7 @@
           {
               method: 'PATCH',
               url: '/carriages/' + to_remove,
-              data: {"authenticity_token": "<%= form_authenticity_token %>",
-                  "train_id": "<%=@train.id %>",
+              data: { "train_id": "<%=@train.id %>",
                   carriage: {train_id: "", order_number: "" }}
           }
         )
@@ -134,7 +140,6 @@
                   method: 'PATCH',
                   url: '/carriages/' + newCarriage,
                   data: {
-                      "authenticity_token": "<%= form_authenticity_token %>",
                       "train_id": "<%=@train.id %>" ,
                       carriage: {train_id: <%=@train.id %>, order_number: next_order_number+1}
                   }
@@ -150,9 +155,8 @@
           {
               method: 'PATCH',
               url: '/trains/' + <%= @train.id %>,
-              data: {"authenticity_token": "<%= form_authenticity_token %>", train: { stops: stops } }
+              data: { train: { stops: stops } }
           }
-
         )
     }
 

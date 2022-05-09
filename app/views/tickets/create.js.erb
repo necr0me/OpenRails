@@ -1,0 +1,13 @@
+$('#place_taken_modal').modal('show')
+chosen = '-'
+
+document.querySelector('#carriage-h2-div').remove()
+document.querySelector('.carriage').remove()
+document.querySelector('#carriage-order-buttons').remove()
+
+$.ajax(
+    {
+      method: 'GET',
+      url: '/carriages/' + <%= @seat.carriage_id %> + '/get_carriage'
+    }
+)

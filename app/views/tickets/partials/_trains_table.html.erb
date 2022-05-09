@@ -1,0 +1,17 @@
+<table class="table table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>Name</th>
+      <th>Departure</th>
+      <th>Arrival</th>
+      <th>Types</th>
+      <th>Price</th>
+      <% if current_user %><th></th><% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% trains.each do |t| %>
+      <%= render partial: 'tickets/partials/train_row', locals: { t: t } %>
+    <% end %>
+  </tbody>
+</table>

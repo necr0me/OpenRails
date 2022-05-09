@@ -26,6 +26,7 @@ function stationClick(id)
     {
         paintListItem(station, 'cornflowerBlue', 'white', 'true')
         arrival_station_id = value;
+        document.querySelector('#confirm-choice-btn').disabled = false
     }
     else
     {
@@ -33,6 +34,7 @@ function stationClick(id)
         {
             paintListItem(station, '#eee', 'black', 'false')
             arrival_station_id = "";
+            document.querySelector('#confirm-choice-btn').disabled = true
         }
         else
         {
@@ -40,8 +42,10 @@ function stationClick(id)
             paintListItem(prevStation, '#eee', 'black', 'false')
             paintListItem(station, 'cornflowerBlue', 'white', 'true')
             arrival_station_id = value;
+            document.querySelector('#confirm-choice-btn').disabled = false
         }
     }
+    document.querySelector('input[name="arrival_station_id"]').value = arrival_station_id;
     console.log(arrival_station_id)
 }
 
@@ -50,4 +54,27 @@ function paintListItem(item, bgColor, color, choose)
     item.style.backgroundColor = bgColor;
     item.style.color = color;
     item.dataset.chosen = choose;
+}
+
+function validate(item)
+{
+    return item.value === ""
+}
+
+function swap(item_a, item_b)
+{
+    var temp = item_a.value
+    item_a.value = item_b.value
+    item_b.value = temp
+}
+
+function switchValues()
+{
+    swap(document.querySelector('#arrival-station'), document.querySelector('#departure-station'))
+    keyUp(document.querySelector('#departure-station'))
+}
+
+function keyUp(input)
+{
+    document.querySelector('#find-trains').disabled = input.value === "";
 }

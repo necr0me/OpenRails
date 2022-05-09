@@ -1,12 +1,32 @@
+.button-seat-span
+{
+  width: 40%;
+  height: 36%;
+  margin: 0 5% 15% 5%;
+}
+
 .square-button
 {
   background-color: #42bcf5;
-  width: 40%;
-  height: 36%;
+  width: 100%;
+  height: 100%;
   border: none;
   font-size: 20px;
   color: white;
-  margin: 0 5% 15% 5%;
+  margin: 0;
+  &:disabled
+  {
+    background-color: #a5ddfa;
+    border: 3px solid #a5ddfa;
+  }
+  &.upper-place:disabled
+  {
+    border-top: 3px solid orange;
+  }
+  &.bottom-place:disabled
+  {
+    border-bottom: 3px solid orange;
+  }
 }
 
 .carriage-left-part
@@ -128,7 +148,7 @@
     content: '';
     height: 3px;
     width: 15px;
-    bottom: 7px;
+    bottom: -6px;
     left: 72px;
   }
 
@@ -142,3 +162,67 @@
     width: 15px;
   }
 }
+
+.bottom-alter button
+{
+    width: 40%;
+    height: 36%;
+}
+
+.carriage-example
+{
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0;
+  font-size: 15px;
+  justify-content: space-around;
+
+  .carriage-seats-examples, .carriage-example-container
+  {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .carriage-seats-examples
+  {
+    .example-seat
+    {
+      background-color: #42bcf5;
+      border: 3px solid #42bcf5;
+      margin: 10px 0;
+      height: 30px;
+      color: white;
+      &:disabled
+      {
+        background-color: #a5ddfa;
+        border: 3px solid #a5ddfa;
+      }
+    }
+
+    .bottom-seat, .bottom-seat:disabled
+    {
+      border-bottom: 3px solid orange;
+    }
+    .upper-seat, .upper-seat:disabled
+    {
+      border-top: 3px solid orange;
+    }
+  }
+
+  .carriage-example-container
+  {
+    & > div
+    {
+      margin-bottom: 30px;
+    }
+    & > div:first-child
+    {
+      margin-top: 11px;
+    }
+  }
+
+}
+
+

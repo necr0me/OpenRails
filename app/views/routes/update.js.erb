@@ -1,4 +1,4 @@
-newStation = ""
+arrival_station_id = ""
 var stationsList = document.querySelector('#ordered-stations-list')
 stationsList.innerHTML = '<% @route.stations.each do |station| %>'
                        + '<li id="os-<%= station.id %>">'

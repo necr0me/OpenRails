@@ -1,10 +1,55 @@
 <% provide(:title, "Home page") %>
-<h1 class="center-container" style="text-align: center">
-<% if signed_in? %>
-  Hi, <%= current_user.email %>!
-  <br>
-  Your current role is <%= current_user.role %>
-<% else %>
-  Hi!
-<% end %>
-</h1>
+<div class="center-container">
+  <div class="search-inputs" style="font-size: 15px">
+    <label for="departure-station">From: </label>
+    <input type="text" id="departure-station" onkeyup="keyUp(this)">
+    <i class="bi bi-arrow-left-right" style="margin: 0 15px; cursor: pointer" onclick="switchValues()"></i>
+    <label for="arrival-station">to: </label>
+    <input type="text" id="arrival-station">
+    <label for="date-pick" style="margin-left: 10px">Date: </label>
+    <input type="date" id="date-pick">
+  </div>
+  <div>
+    <button class="btn btn-primary" id="find-trains" style="font-size: 15px; display: block; margin: 10px auto" onclick="find()" disabled>Search</button>
+  </div>
+  <div id="trains-result-table">
+
+  </div>
+</div>
+
+
+<%= render partial: 'tickets/partials/destination_station_pick_modal' %>
+<%= javascript_include_tag 'home/index' %>
+
+<script>
+    var offsetIndex = "station-".length
+    var arrival_station_id = ""
+
+
+  function getStations(item)
+  {
+      $.ajax(
+          {
+              method: 'GET',
+              url: '/trains/' + item.value + '/get_arrival_stations',
+              data: { after: item.dataset.dstation }
+          }
+      )
+  }
+
+
+  function find()
+  {
+      var startInput, endInput, dateInput
+      startInput = document.querySelector('#departure-station')
+      endInput = document.querySelector('#arrival-station')
+      dateInput = document.querySelector('#date-pick')
+      $.ajax(
+          {
+              method: 'GET',
+              url: '/tickets',
+              data: { start: startInput.value, finish: endInput.value, date: dateInput.value }
+          }
+      )
+  }
+</script>

@@ -1,4 +1,4 @@
-<div class="center-container">
+<div>
   <div class="carriage">
     <div class="coupes upper-coupes">
       <div class="wc">
@@ -12,12 +12,40 @@
         <div class="coupe-side"></div>
       </div>
       <% seats[0..(seats.count/per_row)*per_upper_row-1].each_slice(per_upper_row) do |s| %><div class="coupe">
-      <div class="top"><button class="square-button upper-place"><%="%02d" % s[0].number %></button><button class="square-button upper-place"><%="%02d" % s[3].number %></button></div>
-      <% if car_type == :coupe %>
-        <div class="bottom-alter">
-      <%else %>
-        <div class="bottom">
-      <%end %><button class="square-button bottom-place"><%="%02d" % s[1].number %></button><button class="square-button bottom-place"><%="%02d" % s[2].number %></button></div>
+      <div class="top">
+        <% if s[1].is_taken %>
+          <span class="button-seat-span" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Seat is taken by <%=s[1].ticket.user.initials %>">
+            <button class="square-button upper-place" disabled>
+          <%="%02d" % s[1].number %>
+        </button></span>
+        <% else %>
+          <span class="button-seat-span">
+          <button class="square-button upper-place" value="<%= s[1].id %>" onclick="pickSeat(this)" ><%="%02d" % s[1].number %></button></span>
+        <% end %>
+        <% if s[3].is_taken %>
+          <span class="button-seat-span" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Seat is taken by <%=s[3].ticket.user.initials %>">
+            <button class="square-button upper-place" disabled>
+          <%="%02d" % s[3].number %>
+        </button></span>
+        <% else %>
+          <span class="button-seat-span">
+          <button class="square-button upper-place"
+                                               value="<%= s[3].id %>" onclick="pickSeat(this)"><%="%02d" % s[3].number %></button></span>
+        <%end %></div>
+      <div class="bottom<%= "-alter" if car_type == :coupe %>">
+      <% if s[0].is_taken %><span class="button-seat-span" data-bs-toggle="tooltip"
+                                  data-bs-placement="bottom"
+                                  title="Seat is taken by <%=s[0].ticket.user.initials %>"><button class="square-button bottom-place" disabled>
+          <%="%02d" % s[0].number %>
+        </button></span><% else %><span class="button-seat-span"><button class="square-button bottom-place"
+                                               value="<%=s[0].id %>" onclick="pickSeat(this)"><%="%02d" % s[0].number %>
+      <% end %></button></span><% if s[2].is_taken %><span class="button-seat-span"
+                                                           data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                           title="Seat is taken by <%=s[2].ticket.user.initials %>"><button class="square-button bottom-place" disabled>
+          <%="%02d" % s[2].number %>
+        </button></span><% else %><span class="button-seat-span"><button class="square-button bottom-place"
+                                             value="<%= s[2].id %>" onclick="pickSeat(this)"><%="%02d" % s[2].number %></button></span>
+      <% end %></div>
       </div><% end %>
       <div class="wc">
         <div class="coupe-side"></div>
@@ -28,7 +56,38 @@
     <div class="coupes bottom-coupes">
       <div class="tea-zone">T</div>
       <% if car_type != :coupe %><% seats[-(seats.count/per_row)*per_bottom_row..-1].to_a.reverse.each_slice(per_bottom_row) do |s| %><div class="coupe bottom-coupe">
-      <div class="bottom-block"><button class="square-button upper-place"><%="%02d" % s[0].number %></button><button class="square-button bottom-place"><%="%02d" % s[1].number %></button></div>
+      <div class="bottom-block">
+        <% if s[0].is_taken %>
+          <span class="button-seat-span" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Seat is taken by <%=s[0].ticket.user.initials %>">
+              <button class="square-button upper-place" disabled>
+            <%="%02d" % s[0].number %>
+          </button></span>
+        <% else %>
+        <span class="button-seat-span"><button class="square-button upper-place"
+                                               value="<%= s[0].id %>" onclick="pickSeat(this)"><%="%02d" % s[0].number %>
+      </button></span><% end %>
+        <% if s[1].is_taken %>
+          <span class="button-seat-span" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Seat is taken by <%=s[1].ticket.user.initials %>">
+              <button class="square-button bottom-place" disabled>
+            <%="%02d" % s[1].number %>
+          </button></span>
+        <%else %>
+        <span class="button-seat-span"><button class="square-button bottom-place"
+                                               value="<%= s[1].id %>" onclick="pickSeat(this)"><%="%02d" % s[1].number %></button></span>
+        <%end %></div>
     </div><% end %><% end %></div>
+  </div>
+</div>
+
+<div class="carriage-example">
+  <div class="carriage-example-container">
+    <div><strong>WC</strong> - toilet</div>
+    <div><strong>C</strong> - conductor</div>
+    <div><strong>T</strong> - hot water</div>
+  </div>
+  <div class="carriage-seats-examples">
+    <div><button class="example-seat upper-seat">02</button> - upper place</div>
+    <div><button class="example-seat bottom-seat">01</button> - lower place</div>
+    <div><button class="example-seat upper-seat" disabled>01</button> - place is taken</div>
   </div>
 </div>

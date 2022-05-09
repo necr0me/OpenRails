@@ -51,10 +51,15 @@ function validate()
     })
     console.log(stops)
     console.log(isValid)
-    if (!isValid)
+    if (!isValid) {
         stops.length = 0
+        document.querySelector('#errors_examples_btn').style.display = 'block'
+    }
     else
+    {
+        document.querySelector('#errors_examples_btn').style.display = 'none'
         updateStops(stops)
+    }
 }
 
 function validateInput(input)

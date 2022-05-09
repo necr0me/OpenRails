@@ -3,15 +3,15 @@ class Carriage < ApplicationRecord
 
   belongs_to :carriage_type
   belongs_to :train, optional: true
-  has_many :seats, dependent: :destroy
+  has_many :seats, -> {order(:number)}, dependent: :destroy
 
   def capacity
     self.carriage_type.capacity
   end
 
   def create_seats
-    for i in 1..self.capacity do
-      Seat.create(carriage_id: self.id, number: i)
+    self.capacity.times do |i|
+      Seat.create(carriage_id: self.id, number: i+1)
     end
   end
 

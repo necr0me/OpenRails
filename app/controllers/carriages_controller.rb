@@ -13,6 +13,11 @@ class CarriagesController < ApplicationController
     @carriage = Carriage.find(params[:id])
   end
 
+  def get_carriage
+    @carriage = Carriage.find(params[:carriage_id])
+    puts @carriage.seats.count
+  end
+
   def update
     carriage = Carriage.find(params[:id])
     if params.has_key?(:carriage)

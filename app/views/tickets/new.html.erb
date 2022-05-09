@@ -1,0 +1,47 @@
+<div class="center-container">
+  <h2 id="carriage-pick-h2" style="text-align: center">Pick carriage where you want to order seat: </h2>
+  <ul id="train-carriages-list" style="list-style: none" >
+    <% @train.carriages.each do |carriage| %>
+      <li id="carriage-<%=carriage.id%>">
+        <i class='bi bi-circle-fill blue'></i>
+        <a onclick="getCarriage(<%=carriage.id %>)" style="text-decoration: none; cursor: pointer;"><%= carriage.name %></a></li>
+    <% end %>
+  </ul>
+</div>
+
+<%= render partial: 'tickets/partials/place_taken_modal' %>
+<%= javascript_include_tag 'tickets/new' %>
+
+<script>
+  const departureStation = <%= @departure_station.id %>
+  const arrivalStation = <%= @arrival_station.id %>
+  var chosen = "-"
+  var chosenButton
+
+  function getCarriage(id)
+  {
+      $.ajax(
+          {
+              method: 'GET',
+              url: '/carriages/' + id + '/get_carriage',
+          }
+      )
+  }
+
+  function makeOrder()
+  {
+      if (chosen !== '-')
+      {
+          $.ajax(
+              {
+                  method: 'POST',
+                  url: '/tickets',
+                  data: { ticket: { user_id: <%= current_user.id %>,
+                                    seat_id: chosen,
+                                    departure_station_id: departureStation,
+                                    destination_station_id: arrivalStation}}
+              }
+          )
+    }
+  }
+</script>

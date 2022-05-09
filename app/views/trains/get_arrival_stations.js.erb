@@ -1,0 +1,29 @@
+var stationsUl = document.querySelector('#station-ul')
+var list =  '<% if @stations.any? %>'
+          + '<% @stations.each do |station| %>'
+          + ' <li><a class="stations_to_choose" id="station-<%=station.station_id%>" onclick="stationClick(this.id)" '
+          + ' data-chosen="<%=false%>"><%=station.station.name %> (Arrival time: <%= station.arrival_time.strftime("%d.%m.%Y, %H:%M") %>)</a></li>'
+          + '<% end %>'
+          + '<% else %>'
+          + ' <li><a>No stations to choose (seems like starting point is the last station of route)</a></li>'
+          + '<% end %>'
+
+stationsUl.innerHTML = list
+var modalFooter = document.querySelector('.modal-footer')
+var form = document.querySelector('form#confirm-choice-form')
+if (form!==null)
+{
+    form.remove()
+}
+else
+{
+    modalFooter.querySelector('#confirm-choice-btn').remove()
+}
+
+modalFooter.innerHTML += '<%=button_to "Confirm choice",
+                          new_ticket_path, method: :get,
+                          class: "btn btn-primary",
+                          id: "confirm-choice-btn",
+                          form: { id: "confirm-choice-form"},
+                          params: { train_id: @train.id, departure_station_id: @departure_station.id, arrival_station_id: "" },
+                          disabled: true %>'

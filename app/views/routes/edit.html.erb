@@ -31,6 +31,12 @@ Add new station
                                 + 'style="font-size: 12px; color: red; margin-left: 20px" '
                                 + 'value="' + lastListItem.id.substring('os-'.length) + '" onClick=removeStation(event)>'
                                 + '<i class="bi bi-x-circle"></i></button>'
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
     }
 
     let newStation = ""
@@ -42,7 +48,7 @@ Add new station
           {
               method: 'PATCH',
               url: '/routes/' + <%= @route.id %>,
-              data: {"authenticity_token": "<%= form_authenticity_token %>", route: {station_id: newStation, action: "add" }}
+              data: {route: {station_id: newStation, action: "add" }}
           }
         )
     }
@@ -54,7 +60,7 @@ Add new station
           {
               method: 'PATCH',
               url: '/routes/' + <%= @route.id %>,
-              data: {"authenticity_token": "<%= form_authenticity_token %>", route: {station_id: to_remove, action: "remove" }}
+              data: { route: {station_id: to_remove, action: "remove" }}
           }
         )
     }

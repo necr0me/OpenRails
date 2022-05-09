@@ -1,23 +1,42 @@
 <% provide(:title, "Profile") %>
-<div class="user-profile center-container">
-  <h2>
-  Hi, <%= current_user.email %>!
-  <br>
-  Your current role is <%= current_user.role %>
-  </h2>
-  <br>
-  <% if @user.user_info.present? %>
-    <h2>Here is your info:</h2>
-    <ul>
-      <li>Name: <%= @user.user_info.name %></li>
-      <li>Surname: <%= @user.user_info.surname %></li>
-      <li>Patronymic: <%= @user.user_info.patronymic %></li>
-      <li>Phone number: <%= @user.user_info.phone_number %></li>
-      <li>Passport code: <%= @user.user_info.passport_code %></li>
-    </ul>
-  <% else%>
-    <h2>
-      Seems like currently you are not fulfilled your info
-    </h2>
-  <% end %>
+<div class="center-container">
+  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="true">Profile</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-tickets-tab" data-bs-toggle="pill" data-bs-target="#pills-tickets" type="button" role="tab" aria-controls="pills-tickets" aria-selected="false">Tickets</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+      <% if current_user.user_info.present? %>
+        <div style="display: flex;">
+          <div class="names" style="display: flex; flex-direction: column; font-size: 20px; margin: 15px;">
+            <div>Name: </div>
+            <div>Surname: </div>
+            <div>Patronymic: </div>
+            <div>Passport code: </div>
+            <div>Phone number: </div>
+            <div>Email: </div>
+          </div>
+          <div class="names-values" style="display: flex; flex-direction: column; font-size: 20px; margin: 15px;">
+            <div><%= current_user.user_info.name %></div>
+            <div><%= current_user.user_info.surname %></div>
+            <div><%= current_user.user_info.patronymic %></div>
+            <div><%= current_user.user_info.passport_code %></div>
+            <div><%= current_user.user_info.phone_number %></div>
+            <div><%= current_user.email %></div>
+          </div>
+        </div>
+      <% else %>
+        <h2>It looks like you haven't filled in your information yet.</h2>
+        <br>
+        <h2>You can make it <%= link_to "here", edit_user_path(current_user.id), method: :get %></h2>
+      <% end %>
+    </div>
+    <div class="tab-pane fade" id="pills-tickets" role="tabpanel" aria-labelledby="pills-tickets-tab">
+    </div>
+  </div>
+
 </div>

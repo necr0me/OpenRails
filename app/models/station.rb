@@ -10,6 +10,9 @@ class Station < ApplicationRecord
 
   has_many :passing_trains, -> {order(:arrival_time)}, dependent: :destroy
 
+  has_many :arrival_tickets, class_name: 'Ticket', foreign_key: :destination_station_id, dependent: :destroy
+  has_many :departure_tickets, class_name: 'Ticket', foreign_key: :departure_station_id, dependent: :destroy
+
   validates :name, presence: true, length: {maximum: 30, minimum: 1}
 
   def destroy_connections
@@ -17,4 +20,9 @@ class Station < ApplicationRecord
                      .or(StationConnection.where(connected_station_id: self.id))
                      .destroy_all
   end
+
+  def self.search(term)
+    where("name LIKE :prefix", prefix: "#{term}%")
+  end
+
 end

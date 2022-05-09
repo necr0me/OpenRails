@@ -1,0 +1,40 @@
+<div class="modal fade" id="errors_examples_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width: 430px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick="cancelHide()"></button>
+      </div>
+      <div class="modal-body">
+          <table class="table table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th>Error</th>
+                <th>Definition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type='datetime-local' style="border: none; border-bottom: 1px solid red" disabled></td>
+                <td>Entered time is less than current time</td>
+              </tr>
+              <tr>
+                <td><div style="border-left: 3px solid red;
+                  display: flex;
+                  flex-direction: column;
+                  align-content: space-between;
+                  padding: 1px 0 0 15px;">
+                  <div><input type='datetime-local' style="border: none; font-size: 12px" disabled></div>
+                  <div><input type='datetime-local' style="border: none; font-size: 12px" disabled></div>
+                </div></td>
+                <td style="vertical-align: middle">Departure time is less than arrival time</td>
+              </tr>
+              <tr>
+                <td><i class="bi bi-geo-alt" style="color: red; font-size: 36px"></i><span style="font-size: 26px">Minsk</span></td>
+                <td>Train comes on station earlier than departs from the previous</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+</div>
