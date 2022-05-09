@@ -8,4 +8,12 @@ class Route < ApplicationRecord
     "#{self.stations.first.name} - #{self.stations.last.name}"
   end
 
+  def stations_after(station_id)
+    Station.where(id: self.station_order_numbers
+                          .where("order_number > ?",
+                                 self.station_order_numbers
+                                     .find_by(station_id: station_id).order_number)
+                          .map(&:station_id))
+  end
+
 end
