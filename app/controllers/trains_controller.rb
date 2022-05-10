@@ -1,5 +1,4 @@
 class TrainsController < ApplicationController
-  include TrainsHelper
 
   def index
     @trains = Train.all.includes(:route, :carriages).paginate(page: params[:page], per_page: 7)
@@ -21,8 +20,13 @@ class TrainsController < ApplicationController
   end
 
   def update
-    puts params
-    @train = update_stops(params)
+    if params[:train].has_key?(:stops)
+      @train = TrainStopsManager.new(train_id: params[:id],
+                                     stops: params[:train][:stops]).call
+    elsif params[:train].has_key?(:route_id)
+      @train = TrainRoutesManager.new(train_id: params[:id],
+                                      route_id: params[:train][:route_id]).call
+    end
     respond_to do |format|
       format.js
     end
@@ -35,16 +39,10 @@ class TrainsController < ApplicationController
   end
 
   def get_arrival_stations
-    puts params
     @train = Train.find(params[:train_id])
     @departure_station = Station.find(params[:after])
-    stations_ids = Station.where(id: @train.route.station_order_numbers
-                                        .where("order_number > ?",
-                                               @train.route.station_order_numbers
-                                                     .find_by(station_id: @departure_station.id)
-                                                     .order_number).map(&:station_id)).map(&:id)
-    @stations = @train.stops.where(station_id: stations_ids).and(@train.stops.where.not(arrival_time: nil))
-    puts @stations.to_a.inspect
+    @stations = TrainArrivalStationsFinder.new(train: @train,
+                                               departure_station: @departure_station).call
     respond_to do |format|
       format.js
     end

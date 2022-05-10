@@ -23,7 +23,17 @@ module OpenRails
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
+    config.autoload_paths += %W(
+    #{config.root}/app/services/Train
+    #{config.root}/app/services/Carriage
+    #{config.root}/app/services/Route
+    #{config.root}/app/services/Station
+    #{config.root}/app/services/Ticket
+    )
 
+    config.eager_load_paths += %W(
+    #{config.root}/app/services
+  )
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
