@@ -1,5 +1,4 @@
 class TicketsController < ApplicationController
-  include TicketsHelper
 
   def new
     @train = Train.find(params[:train_id])
@@ -15,8 +14,12 @@ class TicketsController < ApplicationController
         format.js
       end
     else
-      @ticket = Ticket.create(ticket_params)
-      @seat = Seat.find(params[:ticket][:seat_id]).update(is_taken: true)
+      TicketCreator.new(user_id: params[:ticket][:user_id],
+                        seat_id: params[:ticket][:seat_id],
+                        departure_station_id: params[:ticket][:departure_station_id],
+                        destination_station_id: params[:ticket][:destination_station_id]).call
+      # @ticket = Ticket.create(ticket_params)
+      # @seat = Seat.find(params[:ticket][:seat_id]).update(is_taken: true)
       render js: "window.location = '#{user_path(current_user)}'"
     end
   end
@@ -25,7 +28,11 @@ class TicketsController < ApplicationController
     puts params
     @departure_station = Station.find_by(name: params[:start])
     @arrival_station = Station.find_by(name: params[:finish])
-    @trains = get_necessary_trains(params)
+    @trains = TrainsFinder.new(
+      start: params[:start],
+      finish: params[:finish],
+      date: params[:date]
+    ).call
     puts @trains.to_a.inspect
   end
 

@@ -8,6 +8,14 @@ class Route < ApplicationRecord
     "#{self.stations.first.name} - #{self.stations.last.name}"
   end
 
+  def add_station(station_id)
+    StationOrderNumber.create(route_id: self.id, station_id: station_id, order_number: self.stations.count+1)
+  end
+
+  def remove_station(station_id)
+    StationOrderNumber.find_by(route_id: self.id, station_id: station_id).destroy
+  end
+
   def stations_after(station_id)
     Station.where(id: self.station_order_numbers
                           .where("order_number > ?",
@@ -17,3 +25,4 @@ class Route < ApplicationRecord
   end
 
 end
+

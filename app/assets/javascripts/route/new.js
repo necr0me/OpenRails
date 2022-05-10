@@ -22,27 +22,27 @@ function stationClick(id)
 {
     const value = id.substring(offsetIndex)
     const station = document.getElementById(id)
-    if (arrival_station_id === "")
+    if (newStation === "")
     {
         paintListItem(station, 'cornflowerBlue', 'white', 'true')
-        arrival_station_id = value;
+        newStation = value;
     }
     else
     {
         if(station.dataset.chosen === 'true')
         {
             paintListItem(station, '#eee', 'black', 'false')
-            arrival_station_id = "";
+            newStation = "";
         }
         else
         {
-            const prevStation = document.getElementById('station-' + arrival_station_id);
+            const prevStation = document.getElementById('station-' + newStation);
             paintListItem(prevStation, '#eee', 'black', 'false')
             paintListItem(station, 'cornflowerBlue', 'white', 'true')
-            arrival_station_id = value;
+            newStation = value;
         }
     }
-    console.log(arrival_station_id)
+    console.log(newStation)
 }
 
 function paintListItem(item, bgColor, color, choose)

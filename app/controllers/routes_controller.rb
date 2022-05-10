@@ -1,5 +1,5 @@
 class RoutesController < ApplicationController
-  include RoutesHelper
+
   def index
     @routes = Route.all.includes(:stations).order(id: :ASC).paginate(page: params[:page], per_page: 7)
   end
@@ -14,9 +14,8 @@ class RoutesController < ApplicationController
   end
 
   def create
-    puts params
-    unless params[:station_id].blank?
-      route = create_route(params)
+    if params[:station_id].present?
+      route = RouteCreator.new(station_id: params[:station_id]).call
       respond_to do |format|
         format.js { render js: "window.location = '#{routes_path}/#{route.id}/edit'"}
       end
@@ -25,39 +24,29 @@ class RoutesController < ApplicationController
 
   def edit
     @route = Route.find(params[:id])
-    @connected_stations = get_not_common_stations(@route.stations.last.connected_stations,
-                                                  @route.stations)
+    @connected_stations = NotCommonStationsFinder.new(stations_a: @route.stations.last.connected_stations,
+                                                      stations_b: @route.stations).call
   end
 
   def update
     @route = Route.find(params[:id])
-    puts params
-    if params[:route][:action] == 'add'
-      if params[:route][:station_id] != ''
-        add_station(@route, params[:route][:station_id])
-      end
-    elsif params[:route][:action] == 'remove'
-      remove_station(@route, params[:route][:station_id])
-    end
+    RouteStationsManager.new(route: @route,
+                             station_id: params[:route][:station_id],
+                             action: params[:route][:action]).call
     respond_to do |format|
-      if @route.stations.count == 0
-        @route.destroy
-        format.js { render js: "window.location = '#{routes_path}'" }
-      else
-        @stations = get_not_common_stations(@route.stations.last.connected_stations,
-                                            @route.stations)
+      if @route.stations.present?
+        @stations = NotCommonStationsFinder.new(stations_a: @route.stations.last.connected_stations,
+                                                stations_b: @route.stations).call
         format.js
+      else
+        format.js { render js: "window.location = '#{routes_path}'" }
       end
     end
   end
 
   def destroy
     @route = Route.find(params[:id])
-    if @route.destroy
-      flash[:success] = 'You have successfully deleted route.'
-    else
-      flash[:danger] = 'Something went wrong.'
-    end
+    @route.destroy
     redirect_to request.referrer
   end
 

@@ -1,5 +1,4 @@
 class StationsController < ApplicationController
-  include StationsHelper
 
   def new
     @station = Station.new
@@ -45,11 +44,8 @@ class StationsController < ApplicationController
   def update_station_connections
     puts params
     @station = Station.find(params[:station_id])
-    if params.has_key?(:station)
-      execute(params)
-    else
-      remove_all_connections(params[:station_id])
-    end
+    StationConnectionsManager.new(station: @station,
+                                  station_params: params[:station]).call
     respond_to do |format|
       format.js
     end

@@ -16,13 +16,16 @@
 
   function addStation()
   {
-      $.ajax(
-          {
-              method: 'POST',
-              url: '/routes/',
-              data: { station_id: newStation}
-          }
-      )
+      if (newStation !== "")
+      {
+        $.ajax(
+            {
+                method: 'POST',
+                url: '/routes/',
+                data: { station_id: newStation}
+            }
+        )
+      }
   }
 
 </script>
