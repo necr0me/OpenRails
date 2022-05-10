@@ -10,14 +10,20 @@
   <td>-</td>
   <td>
   <% if current_user %>
-    <% if @arrival_station.present? %>
-    <%= button_to "Buy", new_ticket_path, method: :get,
-                      params: { train_id: t.id, departure_station_id: @departure_station.id, arrival_station_id: @arrival_station.id },
-                      class: "btn btn-primary" %>
+      <% if current_user.user_info.present? %>
+        <% if @arrival_station.present? %>
+        <%= button_to "Buy", new_ticket_path, method: :get,
+                          params: { train_id: t.id, departure_station_id: @departure_station.id, arrival_station_id: @arrival_station.id },
+                          class: "btn btn-primary" %>
+          <% else %>
+        <button value="<%= t.id %>" data-dstation="<%= @departure_station.id %>" class="btn btn-primary"
+                    data-bs-toggle="modal" data-bs-target="#destination_station_pick_modal" onclick="getStations(this)">Buy</button>
+        <%end %>
       <% else %>
-    <button value="<%= t.id %>" data-dstation="<%= @departure_station.id %>" class="btn btn-primary"
-                data-bs-toggle="modal" data-bs-target="#destination_station_pick_modal" onclick="getStations(this)">Buy</button>
-    <%end %>
+        <span data-bs-toggle="tooltip" data-bs-placement="right" title="You should to fulfil all your personal data in profile to be able to buy tickets">
+          <button class="btn btn-primary" disabled>Buy</button>
+        </span>
+      <% end %>
   <% end %>
   </td>
 </tr>

@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-  before_action :correct_user, except: [:show]
-  before_action :admin_user, only: [:show]
+  before_action :correct_user
 
   def edit
     @user = User.find(params[:id])
@@ -38,10 +37,6 @@ class UsersController < ApplicationController
   end
 
   def correct_user
-    redirect_to root_path unless logged_in? && current_user.id == params[:id]
-  end
-
-  def admin_user
-    redirect_to root_path unless current_user_admin?
+    redirect_to root_path unless (logged_in? && current_user.id == params[:id].to_i || current_user_admin?)
   end
 end

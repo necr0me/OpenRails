@@ -12,4 +12,8 @@ class User < ApplicationRecord
     self.user_info.present? ? "#{self.user_info.surname} #{self.user_info.name} #{self.user_info.patronymic}" : "user_id: #{self.id}"
   end
 
+  def taken_by
+    "Seat is taken by #{self.initials}"
+  end
+
 end

@@ -1,6 +1,5 @@
 class TicketsController < ApplicationController
   before_action :logged_in, except: [:index]
-  before_action :correct_user, except: [:index, :new]
 
   def new
     @train = Train.find(params[:train_id])
@@ -53,9 +52,5 @@ class TicketsController < ApplicationController
 
   def logged_in
     redirect_to root_path unless logged_in?
-  end
-
-  def correct_user
-    redirect_to root_path unless logged_in? && current_user.id == params[:id]
   end
 end
