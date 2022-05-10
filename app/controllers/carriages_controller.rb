@@ -1,4 +1,6 @@
 class CarriagesController < ApplicationController
+  before_action :admin_user, except: [:get_carriage]
+
   def new
     @carriage = Carriage.new
   end
@@ -38,4 +40,9 @@ class CarriagesController < ApplicationController
     @carriage_types = CarriageType.all
   end
 
+  private
+
+  def admin_user
+    redirect_to root_path unless current_user_admin?
+  end
 end

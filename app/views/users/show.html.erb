@@ -10,7 +10,7 @@
   </ul>
   <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-      <% if current_user.user_info.present? %>
+      <% if @user.user_info.present? %>
         <div style="display: flex;">
           <div class="names" style="display: flex; flex-direction: column; font-size: 20px; margin: 15px;">
             <div>Name: </div>
@@ -21,18 +21,25 @@
             <div>Email: </div>
           </div>
           <div class="names-values" style="display: flex; flex-direction: column; font-size: 20px; margin: 15px;">
-            <div><%= current_user.user_info.name %></div>
-            <div><%= current_user.user_info.surname %></div>
-            <div><%= current_user.user_info.patronymic %></div>
-            <div><%= current_user.user_info.passport_code %></div>
-            <div><%= current_user.user_info.phone_number %></div>
-            <div><%= current_user.email %></div>
+            <div><%= @user.user_info.name %></div>
+            <div><%= @user.user_info.surname %></div>
+            <div><%= @user.user_info.patronymic %></div>
+            <div><%= @user.user_info.passport_code %></div>
+            <div><%= @user.user_info.phone_number %></div>
+            <div><%= @user.email %></div>
           </div>
         </div>
       <% else %>
-        <h2>It looks like you haven't filled in your information yet.</h2>
-        <br>
-        <h2>You can make it <%= link_to "here", edit_user_path(current_user.id), method: :get %></h2>
+        <% if current_user_admin? %>
+          <h2>User haven't filled info about him.</h2>
+        <% else %>
+          <h2>It looks like you haven't filled information about you yet.</h2>
+          <br>
+          <h2>You can make it <%= link_to "here", edit_user_path(@user.id), method: :get %></h2>
+        <% end %>
+      <% end %>
+      <% if current_user.id == @user.id %>
+        <%= button_to "Edit", edit_user_path(@user.id), method: :get, class: 'btn btn-success', style: "font-size: 15px; display: block; margin: 0 auto" %>
       <% end %>
     </div>
     <div class="tab-pane fade" id="pills-tickets" role="tabpanel" aria-labelledby="pills-tickets-tab">

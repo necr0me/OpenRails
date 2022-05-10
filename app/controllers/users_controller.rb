@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
-  def index
-    @users = User.all
-  end
+  before_action :correct_user, except: [:show]
+  before_action :admin_user, only: [:show]
 
   def edit
     @user = User.find(params[:id])
@@ -36,5 +35,13 @@ class UsersController < ApplicationController
                                                         :patronymic,
                                                         :passport_code,
                                                         :phone_number])
+  end
+
+  def correct_user
+    redirect_to root_path unless logged_in? && current_user.id == params[:id]
+  end
+
+  def admin_user
+    redirect_to root_path unless current_user_admin?
   end
 end

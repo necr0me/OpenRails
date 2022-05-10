@@ -8,14 +8,17 @@
       <% end %>
     </div>
   <% end %>
-
-  <button class='btn btn-outline-success' style='margin:10px; font-size: 15px' data-bs-toggle="modal" data-bs-target="#add_station_modal">Create new station</button>
+  <% if current_user_admin? %>
+    <button class='btn btn-outline-success' style='margin:10px; font-size: 15px' data-bs-toggle="modal" data-bs-target="#add_station_modal">Create new station</button>
+  <%end %>
 </div>
 <div class="output-table">
   <table class="table table-hover">
     <thead class="table-dark">
     <tr>
-      <th>id</th>
+      <% if current_user_admin? %>
+        <th>id</th>
+      <% end %>
       <th>Name</th>
       <th>Action</th>
     </tr>

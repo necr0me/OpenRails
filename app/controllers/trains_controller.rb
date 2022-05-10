@@ -1,4 +1,5 @@
 class TrainsController < ApplicationController
+  before_action :admin_user, except: [:get_arrival_stations]
 
   def index
     @trains = Train.all.includes(:route, :carriages).paginate(page: params[:page], per_page: 7)
@@ -46,6 +47,12 @@ class TrainsController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  private
+
+  def admin_user
+    redirect_to root_path unless current_user_admin?
   end
 
 end

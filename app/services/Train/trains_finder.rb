@@ -29,7 +29,6 @@ class TrainsFinder
             Train.where(id: trains_ids).each do |train|
               stations_after = train.route.stations_after(starting_station.id).to_a
               if stations_after.include?(ending_station)
-                puts "train - #{train.id}, station - #{ending_station.name}"
                 stop = PassingTrain.find_by(train_id: train.id, station_id: ending_station.id)
                 if stop.arrival_time.present? && train.carriages.count != 0
                   trains << train

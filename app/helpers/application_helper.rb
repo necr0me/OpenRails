@@ -10,4 +10,11 @@ module ApplicationHelper
     end
   end
 
+  def logged_in?
+    current_user.present?
+  end
+
+  def current_user_admin?
+    logged_in? && current_user.role == "admin"
+  end
 end

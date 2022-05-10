@@ -1,4 +1,5 @@
 class StationsController < ApplicationController
+  before_action :admin_user, except: [:show, :index]
 
   def new
     @station = Station.new
@@ -16,11 +17,6 @@ class StationsController < ApplicationController
 
   def index
     @stations = Station.search(params[:name]).order(id: :ASC).paginate(page: params[:page], per_page: 7)
-  end
-
-  def search_stations
-    @stations = Station.search(params[:term])
-    render json: @stations.map(&:name)
   end
 
   def show
@@ -62,6 +58,10 @@ class StationsController < ApplicationController
 
   def station_params
     params.require(:station).permit(:name)
+  end
+
+  def admin_user
+    redirect_to root_path unless current_user_admin?
   end
 
 end

@@ -1,21 +1,24 @@
-<tr class='station-row' id="station-<%= station.id %>">
-  <th scope="row"><%=station.id %></th>
-  <td> <% if station.passing_trains.count==0 %>
-      <%= station.name %>
-    <% else %>
-      <%= link_to station_path(station.id), method: :get, style: "margin: 0" do %>
-        <%= station.name %>
-      <% end %>
-    <% end %>
-  </td>
+<tr class='station-row' id="station-<%= station.id %>" style="height:75px">
+  <% if current_user_admin? %>
+    <th scope="row"><%=station.id %></th>
+  <% end %>
+  <td><%= station.name %>  </td>
   <td style="width: 20%">
     <div style="display: flex; flex-direction: row;">
-      <%= button_to edit_station_path(station.id), method: :get, class: 'btn btn-outline-primary' do %>
-        <i class="bi bi-pencil-square"></i>
+      <% if current_user_admin? %>
+        <%= button_to edit_station_path(station.id), method: :get, class: 'btn btn-outline-primary' do %>
+          <i class="bi bi-pencil-square"></i>
+        <% end %>
+        <%= button_to station_path(station.id), method: :delete, class: 'btn btn-outline-danger', confirm: 'Are you sure?' do %>
+           <i class="bi bi-trash3"></i>
+        <%end %>
+        <% else %>
+        <% if station.passing_trains.present?  %>
+          <%= button_to station_path(station.id), method: :get, class: 'btn btn-outline-primary' do%>
+            Show passing trains <i class="bi bi-search"></i>
+          <% end %>
+        <%end %>
       <% end %>
-      <%= button_to station_path(station.id), method: :delete, class: 'btn btn-outline-danger', confirm: 'Are you sure?' do %>
-         <i class="bi bi-trash3"></i>
-      <%end %>
     </div>
   </td>
 </tr>

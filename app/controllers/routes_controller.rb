@@ -1,4 +1,5 @@
 class RoutesController < ApplicationController
+  before_action :admin_user
 
   def index
     @routes = Route.all.includes(:stations).order(id: :ASC).paginate(page: params[:page], per_page: 7)
@@ -50,4 +51,9 @@ class RoutesController < ApplicationController
     redirect_to request.referrer
   end
 
+  private
+
+  def admin_user
+    redirect_to root_path unless current_user_admin?
+  end
 end
