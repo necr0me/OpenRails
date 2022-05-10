@@ -18,8 +18,6 @@ class TicketsController < ApplicationController
                         seat_id: params[:ticket][:seat_id],
                         departure_station_id: params[:ticket][:departure_station_id],
                         destination_station_id: params[:ticket][:destination_station_id]).call
-      # @ticket = Ticket.create(ticket_params)
-      # @seat = Seat.find(params[:ticket][:seat_id]).update(is_taken: true)
       render js: "window.location = '#{user_path(current_user)}'"
     end
   end
