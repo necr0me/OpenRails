@@ -41,7 +41,11 @@ class TicketsController < ApplicationController
   end
 
   def destroy
-    @ticket = Ticket.find(params[:id])
+    puts params
+    @ticket = Ticket.find(params[:id]).destroy
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

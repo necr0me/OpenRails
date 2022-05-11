@@ -1,0 +1,83 @@
+.ticket-user
+{
+  width: 600px;
+  height: 180px;
+  background-color: #63a3ff;
+  border: 3px dashed white;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+.ticket-user-container
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 40%;
+  width: 100%;
+}
+
+.ticket-user-data
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 40%;
+  width: 90%;
+  & .ticket-user-initials
+  {
+    color: white;
+    font-size: 20px;
+    margin: 10px;
+  }
+  & .ticket-user-pcode
+  {
+    color: white;
+    font-size: 15px;
+    margin: 10px;
+  }
+}
+
+.ticket-train-data
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 50%;
+  & > div
+  {
+    color: white;
+    margin: 10px;
+    font-size: 12px;
+  }
+}
+
+.ticket-stations-data
+{
+  border-top: 1px solid white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 50%;
+  & > div
+  {
+    color: white;
+    margin: 10px;
+    font-size: 15px;
+  }
+}
+
+.ticket-datetime-data
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 20%;
+  width: 100%;
+  & > div
+  {
+    color: white;
+    margin: 10px;
+    font-size: 15px;
+  }
+}

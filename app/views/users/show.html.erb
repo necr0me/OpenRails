@@ -4,9 +4,11 @@
     <li class="nav-item" role="presentation">
       <button class="nav-link active" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="true">Profile</button>
     </li>
+    <% if @user.tickets.present? %>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-tickets-tab" data-bs-toggle="pill" data-bs-target="#pills-tickets" type="button" role="tab" aria-controls="pills-tickets" aria-selected="false">Tickets</button>
     </li>
+    <% end %>
   </ul>
   <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -42,8 +44,27 @@
         <%= button_to "Edit", edit_user_path(@user.id), method: :get, class: 'btn btn-success', style: "font-size: 15px; display: block; margin: 0 auto" %>
       <% end %>
     </div>
-    <div class="tab-pane fade" id="pills-tickets" role="tabpanel" aria-labelledby="pills-tickets-tab">
-    </div>
+    <% if @user.tickets.present? %>
+      <div class="tab-pane fade" id="pills-tickets" role="tabpanel" aria-labelledby="pills-tickets-tab">
+        <div style="display: flex; flex-direction: column">
+          <% @user.tickets.each do |ticket| %>
+            <%= render partial: 'tickets/partials/ticket', locals: {ticket: ticket} %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 
 </div>
+
+<script>
+  function deleteTicket(id)
+  {
+      $.ajax(
+          {
+              method: 'DELETE',
+              url: '/tickets/' + id
+          }
+      )
+  }
+</script>

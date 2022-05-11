@@ -1,0 +1,23 @@
+<div id="ticket-<%=ticket.id %>" class="ticket-user">
+  <button class='btn btn-danger' value="<%= ticket.id %>" onclick="deleteTicket(this.value)" style="border-radius:0 8px 0 0 ;position: relative; top: 0; float: right">x</button>
+  <div class="ticket-user-data">
+    <div class="ticket-user-initials"><%= ticket.user.initials %></div>
+    <div class="ticket-user-pcode"><%= ticket.user.user_info.passport_code %></div>
+  </div>
+  <div class="ticket-user-container">
+    <div class="ticket-train-data">
+      <div>Place: <%= ticket.seat.number %></div>
+      <div>Carriage number: <%= ticket.seat.carriage.order_number %></div>
+      <div>Train: <%= "#{ticket.seat.carriage.train.id} #{ticket.seat.carriage.train.destination}" %></div>
+    </div>
+    <div class="ticket-stations-data">
+      <div>Departs: <%= ticket.departure_time.strftime("%d-%m-%Y, %H:%M") %></div>
+      <div>Arrives: <%= ticket.arrival_time.strftime("%d-%m-%Y, %H:%M") %></div>
+
+    </div>
+  </div>
+  <div class="ticket-datetime-data">
+    <div>From: <%= ticket.departure_station.name %></div>
+    <div>To: <%= ticket.destination_station.name %></div>
+  </div>
+</div>
